@@ -15,7 +15,6 @@
 }
 html{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased}
 
-/* Header */
 .header{
   background:linear-gradient(135deg,#0D1120 0%,#1a0a2e 50%,#0D1120 100%);
   border-bottom:1px solid var(--border);
@@ -43,7 +42,6 @@ html{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 }
 .header-nav a:hover{border-color:var(--text3);color:var(--text)}
 
-/* Badge bar */
 .badge-bar{
   display:flex;gap:1.5rem;justify-content:center;padding:1rem 1.5rem;
   background:var(--card2);border-bottom:1px solid var(--border);flex-wrap:wrap;
@@ -52,7 +50,6 @@ html{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 .badge-dot{width:6px;height:6px;border-radius:50%}
 .badge-text{font-size:.6rem;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.08em}
 
-/* Sections */
 .section{max-width:1100px;margin:0 auto;padding:2rem 1.5rem}
 .section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.5rem}
 .section-title{font-size:1rem;font-weight:800;letter-spacing:-.02em;display:flex;align-items:center;gap:.5rem}
@@ -63,7 +60,6 @@ html{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
   text-transform:uppercase;letter-spacing:.06em;
 }
 
-/* Product grid */
 .products{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem}
 
 .product-card{
@@ -73,7 +69,7 @@ html{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 .product-card:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
 .product-card.featured{border-color:var(--gold)40}
 .product-card.featured::before{
-  content:'🔥 HOT';position:absolute;top:.5rem;right:.5rem;z-index:2;
+  content:'HOT';position:absolute;top:.5rem;right:.5rem;z-index:2;
   font-size:.45rem;font-weight:800;padding:.15rem .4rem;border-radius:3px;
   background:#F97316;color:#FFF;letter-spacing:.06em;
 }
@@ -98,7 +94,13 @@ html{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 .product-icon{font-size:.65rem;color:var(--text2);margin-bottom:.5rem}
 .product-meta{display:flex;justify-content:space-between;align-items:center}
 .product-price{font-size:.9rem;font-weight:800;color:var(--accent)}
-.product-platform{font-size:.5rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.06em}
+.product-platforms{display:flex;gap:.3rem;align-items:center}
+.platform-dot{
+  font-size:.45rem;font-weight:700;padding:.1rem .3rem;border-radius:2px;
+  text-transform:uppercase;letter-spacing:.04em;
+}
+.platform-dot.live{background:#10B98120;color:#10B981;border:1px solid #10B98140}
+.platform-dot.pending{background:#F9731610;color:#F97316;border:1px solid #F9731630}
 .product-tags{display:flex;gap:.25rem;margin-top:.4rem;flex-wrap:wrap}
 .product-tag{
   font-size:.45rem;font-weight:600;padding:.12rem .35rem;border-radius:2px;
@@ -112,8 +114,11 @@ html{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
   cursor:pointer;text-align:center;text-decoration:none;transition:all .2s;
 }
 .product-cta:hover{opacity:.85;transform:scale(1.02)}
+.product-cta.disabled{
+  background:var(--card2);border:1px solid var(--border);color:var(--text3);
+  cursor:default;pointer-events:none;
+}
 
-/* Collections */
 .collections{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem}
 .collection-card{
   background:var(--card);border:1px solid var(--border);border-radius:8px;
@@ -130,7 +135,6 @@ html{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 .collection-items{font-size:.55rem;color:var(--text3);font-weight:600}
 .collection-emojis{font-size:1.5rem;margin-bottom:.5rem;letter-spacing:.3rem}
 
-/* Stats bar */
 .stats-bar{
   display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;
   padding:1.5rem;max-width:1100px;margin:0 auto;
@@ -142,46 +146,30 @@ html{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 .stat-num{font-size:1.5rem;font-weight:900;font-variant-numeric:tabular-nums}
 .stat-label{font-size:.5rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--text3);margin-top:.15rem}
 
-/* How it works */
-.how-it-works{
-  max-width:1100px;margin:0 auto;padding:2rem 1.5rem;
-}
+.how-it-works{max-width:1100px;margin:0 auto;padding:2rem 1.5rem}
 .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
 .step{
   background:var(--card);border:1px solid var(--border);border-radius:6px;
-  padding:1.25rem;text-align:center;position:relative;
+  padding:1.25rem;text-align:center;
 }
-.step-num{
-  font-size:.5rem;font-weight:800;color:var(--gold);
-  text-transform:uppercase;letter-spacing:.1em;margin-bottom:.4rem;
-}
+.step-num{font-size:.5rem;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.4rem}
 .step-emoji{font-size:1.5rem;margin-bottom:.4rem}
 .step-title{font-size:.75rem;font-weight:700;margin-bottom:.2rem}
 .step-desc{font-size:.6rem;color:var(--text2);line-height:1.5}
 
-/* Footer */
-.footer{
-  text-align:center;padding:2rem 1.5rem;
-  border-top:1px solid var(--border);margin-top:2rem;
-}
+.footer{text-align:center;padding:2rem 1.5rem;border-top:1px solid var(--border);margin-top:2rem}
 .footer p{font-size:.6rem;color:var(--text3);line-height:1.6}
 .footer a{color:var(--gold);text-decoration:none}
 .footer a:hover{text-decoration:underline}
 
-/* Coming soon overlay */
-.coming-soon{
-  position:relative;
+.filter-bar{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem}
+.filter-btn{
+  font-size:.55rem;font-weight:700;padding:.3rem .65rem;border-radius:4px;
+  border:1px solid var(--border);background:transparent;color:var(--text2);
+  cursor:pointer;transition:all .15s;text-transform:uppercase;letter-spacing:.06em;
 }
-.coming-soon::after{
-  content:'COMING SOON';
-  position:absolute;inset:0;
-  display:flex;align-items:center;justify-content:center;
-  background:rgba(8,11,20,.75);backdrop-filter:blur(4px);
-  font-size:.7rem;font-weight:800;letter-spacing:.15em;color:var(--gold);
-  border-radius:8px;
-}
+.filter-btn:hover,.filter-btn.active{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
 
-/* Responsive */
 @media(max-width:600px){
   .header h1{font-size:1.3rem}
   .products{grid-template-columns:1fr 1fr}
@@ -195,9 +183,10 @@ html{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
   <h1>Insta Garam <span class="hl">Merch</span></h1>
   <p>Wear your favorite icons. Every character from our AI cartoon studio, now on merch.</p>
   <div class="header-nav">
-    <a href="https://instagram.com/instagaram.studio" target="_blank">📸 Instagram</a>
-    <a href="#featured">🔥 Featured</a>
-    <a href="#collections">📦 Collections</a>
+    <a href="https://instagram.com/instagaram.studio" target="_blank">Instagram</a>
+    <a href="#featured">Featured</a>
+    <a href="#collections">Collections</a>
+    <a href="#all">All Products</a>
   </div>
 </div>
 
@@ -210,34 +199,34 @@ html{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 
 <div class="stats-bar">
   <div class="stat-card">
-    <div class="stat-num" style="color:var(--accent)" id="totalProducts">0</div>
+    <div class="stat-num" style="color:var(--accent)" id="statProducts">—</div>
     <div class="stat-label">Products</div>
   </div>
   <div class="stat-card">
-    <div class="stat-num" style="color:var(--purple)" id="totalCollections">0</div>
+    <div class="stat-num" style="color:var(--purple)" id="statCollections">—</div>
     <div class="stat-label">Collections</div>
   </div>
   <div class="stat-card">
-    <div class="stat-num" style="color:var(--green)" id="totalIcons">0</div>
-    <div class="stat-label">Icons Available</div>
+    <div class="stat-num" style="color:var(--green)" id="statIcons">—</div>
+    <div class="stat-label">Icons</div>
   </div>
   <div class="stat-card">
-    <div class="stat-num" style="color:var(--fire)" id="newDrops">0</div>
+    <div class="stat-num" style="color:var(--fire)" id="statNew">—</div>
     <div class="stat-label">New This Week</div>
   </div>
 </div>
 
 <div class="section" id="featured">
   <div class="section-header">
-    <div class="section-title">🔥 Featured <span class="fire-tag">Hot</span></div>
-    <div class="section-sub">Top sellers & trending icons</div>
+    <div class="section-title">Featured <span class="fire-tag">Hot</span></div>
+    <div class="section-sub">Top picks from the studio</div>
   </div>
   <div class="products" id="featuredGrid"></div>
 </div>
 
 <div class="section" id="newdrops">
   <div class="section-header">
-    <div class="section-title">✨ New Drops</div>
+    <div class="section-title">New drops</div>
     <div class="section-sub">Fresh from the studio</div>
   </div>
   <div class="products" id="newDropsGrid"></div>
@@ -245,36 +234,37 @@ html{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
 
 <div class="section" id="collections">
   <div class="section-header">
-    <div class="section-title">📦 Collections</div>
+    <div class="section-title">Collections</div>
     <div class="section-sub">Themed bundles</div>
   </div>
   <div class="collections" id="collectionsGrid"></div>
 </div>
 
-<div class="section">
+<div class="section" id="all">
   <div class="section-header">
-    <div class="section-title">🛍️ All Products</div>
-    <div class="section-sub" id="allCount">0 items</div>
+    <div class="section-title">All products</div>
+    <div class="section-sub" id="allCount">—</div>
   </div>
+  <div class="filter-bar" id="filterBar"></div>
   <div class="products" id="allGrid"></div>
 </div>
 
 <div class="how-it-works">
   <div class="section-header">
-    <div class="section-title">How It Works</div>
+    <div class="section-title">How it works</div>
   </div>
   <div class="steps">
     <div class="step">
       <div class="step-num">Step 1</div>
       <div class="step-emoji">📱</div>
-      <div class="step-title">Watch the Reel</div>
+      <div class="step-title">Watch the reel</div>
       <div class="step-desc">Discover iconic figures animated in our signature AI cartoon style</div>
     </div>
     <div class="step">
       <div class="step-num">Step 2</div>
       <div class="step-emoji">🛍️</div>
-      <div class="step-title">Browse Merch</div>
-      <div class="step-desc">Find the character on t-shirts, posters, phone cases & more</div>
+      <div class="step-title">Browse merch</div>
+      <div class="step-desc">Find the character on t-shirts, posters, phone cases and more</div>
     </div>
     <div class="step">
       <div class="step-num">Step 3</div>
@@ -295,180 +285,162 @@ html{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,
   <p>
     <a href="https://instagram.com/instagaram.studio">@instagaram.studio</a> · Prompt. Generate. Captivate.<br>
     Merch powered by print-on-demand · Zero inventory · Global shipping<br>
-    <span style="color:var(--text3)">Catalog auto-updated by 🤖 Merch Manager Agent</span>
+    <span style="color:var(--text3)">Catalog managed by Merch Manager Agent · Decisions by CEO</span>
   </p>
 </div>
 
 <script>
-// ─── Merch Catalog Data ───
-// This will eventually load from merch_catalog.json via GitHub raw
-// For now, seed with sample products to show the storefront design
+// ─── Load catalog from JSON ───
+// In production: fetch('merch_catalog.json')
+// Fallback: inline catalog if fetch fails (e.g. CORS on local)
 
-const CATALOG = {
-  products: [
-    {
-      id:'sachin-tee',icon:'Sachin Tendulkar',category:'Sports',type:'T-Shirt',
-      platform:'Redbubble',price:'₹599',emoji:'🏏',
-      url:'#',featured:true,isNew:true,
-      tags:['cricket','legend','sports'],
-    },
-    {
-      id:'ronaldo-tee',icon:'Cristiano Ronaldo',category:'Sports',type:'T-Shirt',
-      platform:'Redbubble',price:'₹599',emoji:'⚽',
-      url:'#',featured:true,isNew:true,
-      tags:['football','goat','sports'],
-    },
-    {
-      id:'musk-poster',icon:'Elon Musk',category:'Business',type:'Poster',
-      platform:'Redbubble',price:'₹349',emoji:'🚀',
-      url:'#',featured:true,isNew:false,
-      tags:['tech','business','visionary'],
-    },
-    {
-      id:'gandhi-mug',icon:'Mahatma Gandhi',category:'Leaders',type:'Mug',
-      platform:'Printful',price:'₹449',emoji:'🕊️',
-      url:'#',featured:false,isNew:true,
-      tags:['leader','freedom','india'],
-    },
-    {
-      id:'dhoni-case',icon:'MS Dhoni',category:'Sports',type:'Phone Case',
-      platform:'Redbubble',price:'₹399',emoji:'🏏',
-      url:'#',featured:true,isNew:false,
-      tags:['cricket','captain','sports'],
-    },
-    {
-      id:'virat-tee',icon:'Virat Kohli',category:'Sports',type:'T-Shirt',
-      platform:'Redbubble',price:'₹599',emoji:'🏏',
-      url:'#',featured:false,isNew:true,
-      tags:['cricket','king','sports'],
-    },
-    {
-      id:'einstein-poster',icon:'Albert Einstein',category:'Science',type:'Poster',
-      platform:'Redbubble',price:'₹349',emoji:'🧪',
-      url:'#',featured:false,isNew:false,
-      tags:['science','genius','physics'],
-    },
-    {
-      id:'modi-sticker',icon:'Narendra Modi',category:'Leaders',type:'Sticker Pack',
-      platform:'Redbubble',price:'₹149',emoji:'🇮🇳',
-      url:'#',featured:false,isNew:false,
-      tags:['leader','india','politics'],
-    },
-    {
-      id:'messi-tee',icon:'Lionel Messi',category:'Sports',type:'T-Shirt',
-      platform:'Redbubble',price:'₹599',emoji:'⚽',
-      url:'#',featured:false,isNew:true,
-      tags:['football','goat','sports'],
-    },
-    {
-      id:'jobs-poster',icon:'Steve Jobs',category:'Business',type:'Poster',
-      platform:'Redbubble',price:'₹349',emoji:'🍎',
-      url:'#',featured:false,isNew:false,
-      tags:['tech','business','apple'],
-    },
-    {
-      id:'kalam-tee',icon:'APJ Abdul Kalam',category:'Science',type:'T-Shirt',
-      platform:'Redbubble',price:'₹599',emoji:'🚀',
-      url:'#',featured:false,isNew:false,
-      tags:['science','india','missile'],
-    },
-    {
-      id:'srk-hoodie',icon:'Shah Rukh Khan',category:'Culture',type:'Hoodie',
-      platform:'Printful',price:'₹1299',emoji:'🎬',
-      url:'#',featured:false,isNew:true,
-      tags:['bollywood','king','culture'],
-    },
-  ],
-  collections: [
-    {
-      id:'sports-legends',name:'Sports Legends',
-      desc:'The greatest athletes of all time, animated in our signature style',
-      emojis:'🏏⚽🏀',
-      items:['sachin-tee','ronaldo-tee','dhoni-case','virat-tee','messi-tee'],
-    },
-    {
-      id:'tech-titans',name:'Tech Titans',
-      desc:'Visionaries who changed the world, now on your wall',
-      emojis:'🚀🍎💡',
-      items:['musk-poster','jobs-poster'],
-    },
-    {
-      id:'indian-icons',name:'Indian Icons',
-      desc:'Celebrate India\'s greatest — leaders, scientists, athletes',
-      emojis:'🇮🇳🏏🚀',
-      items:['sachin-tee','gandhi-mug','dhoni-case','virat-tee','modi-sticker','kalam-tee'],
-    },
-    {
-      id:'science-minds',name:'Science & Minds',
-      desc:'The brilliant minds that shaped our understanding of the universe',
-      emojis:'🧪🔬🚀',
-      items:['einstein-poster','kalam-tee'],
-    },
-  ],
-};
-
-// ─── Render ───
-function renderProduct(p, showComingSoon){
-  const cs = (p.url==='#' && showComingSoon) ? ' coming-soon' : '';
-  return `
-    <div class="product-card${p.featured?' featured':''}${cs}">
-      <div class="product-img">
-        <div class="char-bg">${p.emoji}</div>
-        <div class="product-type-badge">${p.type}</div>
-      </div>
-      <div class="product-body">
-        <div class="product-name">${p.icon} ${p.type}</div>
-        <div class="product-icon">AI Cartoon Style · ${p.category}</div>
-        <div class="product-meta">
-          <div class="product-price">${p.price}</div>
-          <div class="product-platform">${p.platform}</div>
-        </div>
-        <div class="product-tags">
-          ${p.tags.map(t=>'<span class="product-tag">#'+t+'</span>').join('')}
-        </div>
-        <a href="${p.url}" class="product-cta" target="_blank" rel="noopener">
-          ${p.url==='#'?'Coming Soon':'Shop Now →'}
-        </a>
-      </div>
-    </div>
-  `;
+async function loadCatalog() {
+  try {
+    const res = await fetch('merch_catalog.json');
+    if (!res.ok) throw new Error('fetch failed');
+    return await res.json();
+  } catch(e) {
+    console.warn('Could not fetch merch_catalog.json, using inline fallback');
+    return null;
+  }
 }
 
-// Featured
-const featured = CATALOG.products.filter(p=>p.featured);
-document.getElementById('featuredGrid').innerHTML = featured.map(p=>renderProduct(p,false)).join('');
+function getBestUrl(product) {
+  if (!product.platforms) return '';
+  // Priority: printify > redbubble > qikink > amazon
+  const priority = ['printify', 'redbubble', 'qikink', 'amazon'];
+  for (const p of priority) {
+    const plat = product.platforms[p];
+    if (plat && plat.url && plat.url.length > 5 && plat.status === 'active') return plat.url;
+  }
+  return '';
+}
 
-// New drops
-const newDrops = CATALOG.products.filter(p=>p.isNew);
-document.getElementById('newDropsGrid').innerHTML = newDrops.map(p=>renderProduct(p,false)).join('');
+function getPlatformDots(product) {
+  if (!product.platforms) return '';
+  return Object.entries(product.platforms).map(([name, info]) => {
+    const isLive = info.url && info.url.length > 5 && info.status === 'active';
+    const label = name === 'printify' ? 'Etsy' : name.charAt(0).toUpperCase() + name.slice(1);
+    return '<span class="platform-dot ' + (isLive ? 'live' : 'pending') + '">' + label + '</span>';
+  }).join('');
+}
 
-// Collections
-document.getElementById('collectionsGrid').innerHTML = CATALOG.collections.map(c=>`
-  <div class="collection-card" onclick="filterCollection('${c.id}')">
-    <div class="collection-emojis">${c.emojis}</div>
-    <div class="collection-name">${c.name}</div>
-    <div class="collection-desc">${c.desc}</div>
-    <div class="collection-items">${c.items.length} products</div>
-  </div>
-`).join('');
+function trackClick(productId, platform) {
+  // UTM tracking — log to console for now, can be wired to analytics later
+  console.log('MERCH_CLICK', { product: productId, platform: platform, time: new Date().toISOString() });
+}
 
-// All products
-document.getElementById('allGrid').innerHTML = CATALOG.products.map(p=>renderProduct(p,true)).join('');
-document.getElementById('allCount').textContent = CATALOG.products.length + ' items';
+function renderProduct(p) {
+  const url = getBestUrl(p);
+  const hasUrl = url.length > 0;
+  const tags = (p.tags || []).map(function(t) { return '<span class="product-tag">#' + t + '</span>'; }).join('');
+  const platforms = getPlatformDots(p);
+  const price = typeof p.price_inr === 'number' ? '₹' + p.price_inr : (p.price || '');
 
-// Stats
-document.getElementById('totalProducts').textContent = CATALOG.products.length;
-document.getElementById('totalCollections').textContent = CATALOG.collections.length;
-document.getElementById('totalIcons').textContent = [...new Set(CATALOG.products.map(p=>p.icon))].length;
-document.getElementById('newDrops').textContent = newDrops.length;
+  return '<div class="product-card' + (p.featured ? ' featured' : '') + '">' +
+    '<div class="product-img">' +
+      '<div class="char-bg">' + (p.emoji || '') + '</div>' +
+      '<div class="product-type-badge">' + (p.type || '') + '</div>' +
+    '</div>' +
+    '<div class="product-body">' +
+      '<div class="product-name">' + (p.icon || '') + ' ' + (p.type || '') + '</div>' +
+      '<div class="product-icon">AI Cartoon Style · ' + (p.category || '') + '</div>' +
+      '<div class="product-meta">' +
+        '<div class="product-price">' + price + '</div>' +
+        '<div class="product-platforms">' + platforms + '</div>' +
+      '</div>' +
+      '<div class="product-tags">' + tags + '</div>' +
+      (hasUrl
+        ? '<a href="' + url + '" class="product-cta" target="_blank" rel="noopener" onclick="trackClick(\'' + p.id + '\',\'link\')">Shop Now →</a>'
+        : '<span class="product-cta disabled">Coming Soon</span>') +
+    '</div>' +
+  '</div>';
+}
 
-// Collection filter
-function filterCollection(id){
-  const col = CATALOG.collections.find(c=>c.id===id);
-  if(!col)return;
-  const items = CATALOG.products.filter(p=>col.items.includes(p.id));
-  document.getElementById('allGrid').innerHTML = items.map(p=>renderProduct(p,true)).join('');
+function renderCollection(c, products) {
+  var itemProducts = products.filter(function(p) {
+    return (c.product_ids || c.items || []).indexOf(p.id) !== -1;
+  });
+  var liveCount = itemProducts.filter(function(p) { return getBestUrl(p).length > 0; }).length;
+
+  return '<div class="collection-card" onclick="filterCollection(\'' + c.id + '\')">' +
+    '<div class="collection-emojis">' + (c.emojis || '') + '</div>' +
+    '<div class="collection-name">' + (c.name || '') + '</div>' +
+    '<div class="collection-desc">' + (c.desc || c.description || '') + '</div>' +
+    '<div class="collection-items">' + itemProducts.length + ' products · ' + liveCount + ' live</div>' +
+  '</div>';
+}
+
+function renderAll(catalog) {
+  var products = catalog.products || [];
+  var collections = catalog.collections || [];
+
+  // Stats
+  var activeProducts = products.filter(function(p) { return p.status !== 'retired'; });
+  var newProducts = products.filter(function(p) { return p.is_new || p.isNew; });
+  var uniqueIcons = [];
+  products.forEach(function(p) { if (uniqueIcons.indexOf(p.icon) === -1) uniqueIcons.push(p.icon); });
+
+  document.getElementById('statProducts').textContent = activeProducts.length;
+  document.getElementById('statCollections').textContent = collections.length;
+  document.getElementById('statIcons').textContent = uniqueIcons.length;
+  document.getElementById('statNew').textContent = newProducts.length;
+
+  // Featured
+  var featured = products.filter(function(p) { return p.featured; });
+  document.getElementById('featuredGrid').innerHTML = featured.map(renderProduct).join('');
+
+  // New drops
+  document.getElementById('newDropsGrid').innerHTML = newProducts.map(renderProduct).join('');
+
+  // Collections
+  document.getElementById('collectionsGrid').innerHTML = collections.map(function(c) {
+    return renderCollection(c, products);
+  }).join('');
+
+  // Category filters
+  var categories = ['All'];
+  products.forEach(function(p) { if (p.category && categories.indexOf(p.category) === -1) categories.push(p.category); });
+  document.getElementById('filterBar').innerHTML = categories.map(function(cat, i) {
+    return '<button class="filter-btn' + (i === 0 ? ' active' : '') + '" onclick="filterCategory(\'' + cat + '\')">' + cat + '</button>';
+  }).join('');
+
+  // All products
+  document.getElementById('allGrid').innerHTML = products.map(renderProduct).join('');
+  document.getElementById('allCount').textContent = products.length + ' items';
+
+  // Store globally for filtering
+  window._catalog = catalog;
+}
+
+function filterCategory(cat) {
+  var products = window._catalog.products || [];
+  var filtered = cat === 'All' ? products : products.filter(function(p) { return p.category === cat; });
+  document.getElementById('allGrid').innerHTML = filtered.map(renderProduct).join('');
+  document.getElementById('allCount').textContent = filtered.length + ' items' + (cat !== 'All' ? ' · ' + cat : '');
+
+  document.querySelectorAll('.filter-btn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.textContent === cat);
+  });
+}
+
+function filterCollection(id) {
+  var catalog = window._catalog;
+  var col = (catalog.collections || []).find(function(c) { return c.id === id; });
+  if (!col) return;
+  var ids = col.product_ids || col.items || [];
+  var items = (catalog.products || []).filter(function(p) { return ids.indexOf(p.id) !== -1; });
+  document.getElementById('allGrid').innerHTML = items.map(renderProduct).join('');
   document.getElementById('allCount').textContent = items.length + ' items · ' + col.name;
-  document.getElementById('allGrid').scrollIntoView({behavior:'smooth',block:'start'});
+  document.getElementById('allGrid').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
+
+// Boot
+loadCatalog().then(function(catalog) {
+  if (catalog) {
+    renderAll(catalog);
+  } else {
+    document.getElementById('featuredGrid').innerHTML = '<p style="color:var(--text3);font-size:.8rem;">Loading catalog...</p>';
+  }
+});
 </script>

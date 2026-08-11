@@ -1,0 +1,330 @@
+{
+  "meta": {
+    "last_updated": "2026-08-11T20:00:00+05:30",
+    "updated_by": "merch-manager-agent",
+    "total_products": 12,
+    "total_collections": 4,
+    "platforms": {
+      "redbubble": {
+        "shop_url": "",
+        "status": "pending_setup",
+        "notes": "Create shop at redbubble.com/people/YOUR_SHOP"
+      },
+      "printify_etsy": {
+        "printify_shop_id": "",
+        "etsy_shop_url": "",
+        "status": "pending_setup",
+        "notes": "Sign up at printify.com, connect Etsy shop"
+      },
+      "qikink": {
+        "shop_url": "",
+        "status": "pending_setup",
+        "notes": "Sign up at qikink.com, connect Shopify if needed"
+      },
+      "amazon_affiliate": {
+        "associate_tag": "",
+        "status": "pending_setup",
+        "notes": "Sign up at affiliate-program.amazon.in"
+      }
+    }
+  },
+  "products": [
+    {
+      "id": "sachin-tee-01",
+      "icon": "Sachin Tendulkar",
+      "category": "Sports",
+      "type": "T-Shirt",
+      "emoji": "🏏",
+      "price_inr": 599,
+      "margin_inr": 250,
+      "platforms": {
+        "redbubble": { "url": "", "status": "pending" },
+        "printify": { "url": "", "status": "pending" },
+        "amazon": { "url": "", "status": "pending", "type": "affiliate" }
+      },
+      "design_file": "",
+      "source_reel": "",
+      "tags": ["cricket", "legend", "sports", "india"],
+      "featured": true,
+      "is_new": true,
+      "status": "draft",
+      "created": "2026-08-11",
+      "clicks": 0,
+      "sales": 0
+    },
+    {
+      "id": "ronaldo-tee-01",
+      "icon": "Cristiano Ronaldo",
+      "category": "Sports",
+      "type": "T-Shirt",
+      "emoji": "⚽",
+      "price_inr": 599,
+      "margin_inr": 250,
+      "platforms": {
+        "redbubble": { "url": "", "status": "pending" },
+        "printify": { "url": "", "status": "pending" },
+        "amazon": { "url": "", "status": "pending", "type": "affiliate" }
+      },
+      "design_file": "",
+      "source_reel": "",
+      "tags": ["football", "goat", "sports"],
+      "featured": true,
+      "is_new": true,
+      "status": "draft",
+      "created": "2026-08-11",
+      "clicks": 0,
+      "sales": 0
+    },
+    {
+      "id": "musk-poster-01",
+      "icon": "Elon Musk",
+      "category": "Business",
+      "type": "Poster",
+      "emoji": "🚀",
+      "price_inr": 349,
+      "margin_inr": 150,
+      "platforms": {
+        "redbubble": { "url": "", "status": "pending" },
+        "printify": { "url": "", "status": "pending" },
+        "amazon": { "url": "", "status": "pending", "type": "affiliate" }
+      },
+      "design_file": "",
+      "source_reel": "",
+      "tags": ["tech", "business", "visionary"],
+      "featured": true,
+      "is_new": false,
+      "status": "draft",
+      "created": "2026-08-11",
+      "clicks": 0,
+      "sales": 0
+    },
+    {
+      "id": "gandhi-mug-01",
+      "icon": "Mahatma Gandhi",
+      "category": "Leaders",
+      "type": "Mug",
+      "emoji": "🕊️",
+      "price_inr": 449,
+      "margin_inr": 200,
+      "platforms": {
+        "redbubble": { "url": "", "status": "pending" },
+        "qikink": { "url": "", "status": "pending" },
+        "amazon": { "url": "", "status": "pending", "type": "affiliate" }
+      },
+      "design_file": "",
+      "source_reel": "",
+      "tags": ["leader", "freedom", "india"],
+      "featured": false,
+      "is_new": true,
+      "status": "draft",
+      "created": "2026-08-11",
+      "clicks": 0,
+      "sales": 0
+    },
+    {
+      "id": "dhoni-case-01",
+      "icon": "MS Dhoni",
+      "category": "Sports",
+      "type": "Phone Case",
+      "emoji": "🏏",
+      "price_inr": 399,
+      "margin_inr": 180,
+      "platforms": {
+        "redbubble": { "url": "", "status": "pending" },
+        "printify": { "url": "", "status": "pending" }
+      },
+      "design_file": "",
+      "source_reel": "",
+      "tags": ["cricket", "captain", "sports"],
+      "featured": true,
+      "is_new": false,
+      "status": "draft",
+      "created": "2026-08-11",
+      "clicks": 0,
+      "sales": 0
+    },
+    {
+      "id": "virat-tee-01",
+      "icon": "Virat Kohli",
+      "category": "Sports",
+      "type": "T-Shirt",
+      "emoji": "🏏",
+      "price_inr": 599,
+      "margin_inr": 250,
+      "platforms": {
+        "redbubble": { "url": "", "status": "pending" },
+        "printify": { "url": "", "status": "pending" }
+      },
+      "design_file": "",
+      "source_reel": "",
+      "tags": ["cricket", "king", "sports"],
+      "featured": false,
+      "is_new": true,
+      "status": "draft",
+      "created": "2026-08-11",
+      "clicks": 0,
+      "sales": 0
+    },
+    {
+      "id": "einstein-poster-01",
+      "icon": "Albert Einstein",
+      "category": "Science",
+      "type": "Poster",
+      "emoji": "🧪",
+      "price_inr": 349,
+      "margin_inr": 150,
+      "platforms": {
+        "redbubble": { "url": "", "status": "pending" },
+        "printify": { "url": "", "status": "pending" }
+      },
+      "design_file": "",
+      "source_reel": "",
+      "tags": ["science", "genius", "physics"],
+      "featured": false,
+      "is_new": false,
+      "status": "draft",
+      "created": "2026-08-11",
+      "clicks": 0,
+      "sales": 0
+    },
+    {
+      "id": "modi-sticker-01",
+      "icon": "Narendra Modi",
+      "category": "Leaders",
+      "type": "Sticker Pack",
+      "emoji": "🇮🇳",
+      "price_inr": 149,
+      "margin_inr": 80,
+      "platforms": {
+        "redbubble": { "url": "", "status": "pending" }
+      },
+      "design_file": "",
+      "source_reel": "",
+      "tags": ["leader", "india", "politics"],
+      "featured": false,
+      "is_new": false,
+      "status": "draft",
+      "created": "2026-08-11",
+      "clicks": 0,
+      "sales": 0
+    },
+    {
+      "id": "messi-tee-01",
+      "icon": "Lionel Messi",
+      "category": "Sports",
+      "type": "T-Shirt",
+      "emoji": "⚽",
+      "price_inr": 599,
+      "margin_inr": 250,
+      "platforms": {
+        "redbubble": { "url": "", "status": "pending" },
+        "printify": { "url": "", "status": "pending" }
+      },
+      "design_file": "",
+      "source_reel": "",
+      "tags": ["football", "goat", "sports"],
+      "featured": false,
+      "is_new": true,
+      "status": "draft",
+      "created": "2026-08-11",
+      "clicks": 0,
+      "sales": 0
+    },
+    {
+      "id": "jobs-poster-01",
+      "icon": "Steve Jobs",
+      "category": "Business",
+      "type": "Poster",
+      "emoji": "🍎",
+      "price_inr": 349,
+      "margin_inr": 150,
+      "platforms": {
+        "redbubble": { "url": "", "status": "pending" },
+        "printify": { "url": "", "status": "pending" }
+      },
+      "design_file": "",
+      "source_reel": "",
+      "tags": ["tech", "business", "apple"],
+      "featured": false,
+      "is_new": false,
+      "status": "draft",
+      "created": "2026-08-11",
+      "clicks": 0,
+      "sales": 0
+    },
+    {
+      "id": "kalam-tee-01",
+      "icon": "APJ Abdul Kalam",
+      "category": "Science",
+      "type": "T-Shirt",
+      "emoji": "🚀",
+      "price_inr": 599,
+      "margin_inr": 250,
+      "platforms": {
+        "redbubble": { "url": "", "status": "pending" },
+        "printify": { "url": "", "status": "pending" }
+      },
+      "design_file": "",
+      "source_reel": "",
+      "tags": ["science", "india", "missile"],
+      "featured": false,
+      "is_new": false,
+      "status": "draft",
+      "created": "2026-08-11",
+      "clicks": 0,
+      "sales": 0
+    },
+    {
+      "id": "srk-hoodie-01",
+      "icon": "Shah Rukh Khan",
+      "category": "Culture",
+      "type": "Hoodie",
+      "emoji": "🎬",
+      "price_inr": 1299,
+      "margin_inr": 500,
+      "platforms": {
+        "redbubble": { "url": "", "status": "pending" },
+        "qikink": { "url": "", "status": "pending" }
+      },
+      "design_file": "",
+      "source_reel": "",
+      "tags": ["bollywood", "king", "culture"],
+      "featured": false,
+      "is_new": true,
+      "status": "draft",
+      "created": "2026-08-11",
+      "clicks": 0,
+      "sales": 0
+    }
+  ],
+  "collections": [
+    {
+      "id": "sports-legends",
+      "name": "Sports Legends",
+      "desc": "The greatest athletes of all time, animated in our signature style",
+      "emojis": "🏏⚽🏀",
+      "product_ids": ["sachin-tee-01", "ronaldo-tee-01", "dhoni-case-01", "virat-tee-01", "messi-tee-01"]
+    },
+    {
+      "id": "tech-titans",
+      "name": "Tech Titans",
+      "desc": "Visionaries who changed the world, now on your wall",
+      "emojis": "🚀🍎💡",
+      "product_ids": ["musk-poster-01", "jobs-poster-01"]
+    },
+    {
+      "id": "indian-icons",
+      "name": "Indian Icons",
+      "desc": "Celebrate India's greatest — leaders, scientists, athletes",
+      "emojis": "🇮🇳🏏🚀",
+      "product_ids": ["sachin-tee-01", "gandhi-mug-01", "dhoni-case-01", "virat-tee-01", "modi-sticker-01", "kalam-tee-01"]
+    },
+    {
+      "id": "science-minds",
+      "name": "Science & Minds",
+      "desc": "The brilliant minds that shaped our understanding of the universe",
+      "emojis": "🧪🔬🚀",
+      "product_ids": ["einstein-poster-01", "kalam-tee-01"]
+    }
+  ]
+}
