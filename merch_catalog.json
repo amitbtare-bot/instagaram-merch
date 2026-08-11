@@ -1,6 +1,6 @@
 {
   "meta": {
-    "last_updated": "2026-08-11T20:00:00+05:30",
+    "last_updated": "2026-08-11T21:00:00+05:30",
     "updated_by": "merch-manager-agent",
     "total_products": 12,
     "total_collections": 4,
@@ -22,32 +22,78 @@
         "notes": "Sign up at qikink.com, connect Shopify if needed"
       },
       "amazon_affiliate": {
-        "associate_tag": "",
-        "status": "pending_setup",
-        "notes": "Sign up at affiliate-program.amazon.in"
+        "associate_tag": "instagaram077-21",
+        "status": "active",
+        "notes": "Amazon Associates India — active"
       }
     }
   },
   "products": [
     {
-      "id": "sachin-tee-01",
+      "id": "sachin-poster-01",
       "icon": "Sachin Tendulkar",
       "category": "Sports",
-      "type": "T-Shirt",
+      "type": "Poster",
       "emoji": "🏏",
-      "price_inr": 599,
-      "margin_inr": 250,
+      "price_inr": 199,
+      "margin_inr": 0,
+      "margin_type": "affiliate",
+      "commission_pct": 10,
       "platforms": {
-        "redbubble": { "url": "", "status": "pending" },
-        "printify": { "url": "", "status": "pending" },
-        "amazon": { "url": "", "status": "pending", "type": "affiliate" }
+        "amazon": { "url": "https://www.amazon.in/dp/B08D6ZVC6D?tag=instagaram077-21", "status": "active", "type": "affiliate", "asin": "B08D6ZVC6D", "title": "Sachin Tendulkar Cartoon Oil Painting Poster Combo Set of 2" }
       },
       "design_file": "",
       "source_reel": "",
-      "tags": ["cricket", "legend", "sports", "india"],
+      "tags": ["cricket", "legend", "sports", "india", "poster"],
       "featured": true,
       "is_new": true,
-      "status": "draft",
+      "status": "active",
+      "created": "2026-08-11",
+      "clicks": 0,
+      "sales": 0
+    },
+    {
+      "id": "sachin-frame-01",
+      "icon": "Sachin Tendulkar",
+      "category": "Sports",
+      "type": "Framed Art",
+      "emoji": "🏏",
+      "price_inr": 399,
+      "margin_inr": 0,
+      "margin_type": "affiliate",
+      "commission_pct": 10,
+      "platforms": {
+        "amazon": { "url": "https://www.amazon.in/dp/B08TV76BMS?tag=instagaram077-21", "status": "active", "type": "affiliate", "asin": "B08TV76BMS", "title": "Sachin Tendulkar Cartoon Framed Wall Art" }
+      },
+      "design_file": "",
+      "source_reel": "",
+      "tags": ["cricket", "legend", "sports", "india", "framed"],
+      "featured": false,
+      "is_new": true,
+      "status": "active",
+      "created": "2026-08-11",
+      "clicks": 0,
+      "sales": 0
+    },
+    {
+      "id": "ronaldo-poster-01",
+      "icon": "Cristiano Ronaldo",
+      "category": "Sports",
+      "type": "Poster",
+      "emoji": "⚽",
+      "price_inr": 199,
+      "margin_inr": 0,
+      "margin_type": "affiliate",
+      "commission_pct": 10,
+      "platforms": {
+        "amazon": { "url": "https://www.amazon.in/dp/B07KPMMQYR?tag=instagaram077-21", "status": "active", "type": "affiliate", "asin": "B07KPMMQYR", "title": "Cristiano Ronaldo CR7 Cartoon Motivational Poster" }
+      },
+      "design_file": "",
+      "source_reel": "",
+      "tags": ["football", "goat", "sports", "poster"],
+      "featured": true,
+      "is_new": true,
+      "status": "active",
       "created": "2026-08-11",
       "clicks": 0,
       "sales": 0
@@ -58,19 +104,19 @@
       "category": "Sports",
       "type": "T-Shirt",
       "emoji": "⚽",
-      "price_inr": 599,
-      "margin_inr": 250,
+      "price_inr": 499,
+      "margin_inr": 0,
+      "margin_type": "affiliate",
+      "commission_pct": 8,
       "platforms": {
-        "redbubble": { "url": "", "status": "pending" },
-        "printify": { "url": "", "status": "pending" },
-        "amazon": { "url": "", "status": "pending", "type": "affiliate" }
+        "amazon": { "url": "https://www.amazon.in/dp/B0C8CCF465?tag=instagaram077-21", "status": "active", "type": "affiliate", "asin": "B0C8CCF465", "title": "Cristiano Ronaldo Printed Graphic T-Shirt" }
       },
       "design_file": "",
       "source_reel": "",
-      "tags": ["football", "goat", "sports"],
-      "featured": true,
+      "tags": ["football", "goat", "sports", "tshirt"],
+      "featured": false,
       "is_new": true,
-      "status": "draft",
+      "status": "active",
       "created": "2026-08-11",
       "clicks": 0,
       "sales": 0
@@ -81,86 +127,111 @@
       "category": "Business",
       "type": "Poster",
       "emoji": "🚀",
-      "price_inr": 349,
-      "margin_inr": 150,
+      "price_inr": 299,
+      "margin_inr": 0,
+      "margin_type": "affiliate",
+      "commission_pct": 10,
       "platforms": {
-        "redbubble": { "url": "", "status": "pending" },
-        "printify": { "url": "", "status": "pending" },
-        "amazon": { "url": "", "status": "pending", "type": "affiliate" }
+        "amazon": { "url": "https://www.amazon.in/dp/B081WR2KL2?tag=instagaram077-21", "status": "active", "type": "affiliate", "asin": "B081WR2KL2", "title": "Elon Musk Motivational Poster 12X18 Do Something Bold" }
       },
       "design_file": "",
       "source_reel": "",
-      "tags": ["tech", "business", "visionary"],
+      "tags": ["tech", "business", "visionary", "poster"],
       "featured": true,
       "is_new": false,
-      "status": "draft",
+      "status": "active",
       "created": "2026-08-11",
       "clicks": 0,
       "sales": 0
     },
     {
-      "id": "gandhi-mug-01",
+      "id": "techpack-poster-01",
+      "icon": "Elon Musk + Steve Jobs + Ratan Tata + Jeff Bezos",
+      "category": "Business",
+      "type": "Poster Pack",
+      "emoji": "🚀",
+      "price_inr": 249,
+      "margin_inr": 0,
+      "margin_type": "affiliate",
+      "commission_pct": 10,
+      "platforms": {
+        "amazon": { "url": "https://www.amazon.in/dp/B0DHJ8KX13?tag=instagaram077-21", "status": "active", "type": "affiliate", "asin": "B0DHJ8KX13", "title": "Motivational Poster - Elon Musk, Ratan Tata, Steve Jobs, Jeff Bezos" }
+      },
+      "design_file": "",
+      "source_reel": "",
+      "tags": ["tech", "business", "motivational", "pack"],
+      "featured": false,
+      "is_new": true,
+      "status": "active",
+      "created": "2026-08-11",
+      "clicks": 0,
+      "sales": 0
+    },
+    {
+      "id": "gandhi-poster-01",
       "icon": "Mahatma Gandhi",
       "category": "Leaders",
-      "type": "Mug",
+      "type": "Poster",
       "emoji": "🕊️",
-      "price_inr": 449,
-      "margin_inr": 200,
+      "price_inr": 199,
+      "margin_inr": 0,
+      "margin_type": "affiliate",
+      "commission_pct": 10,
       "platforms": {
-        "redbubble": { "url": "", "status": "pending" },
-        "qikink": { "url": "", "status": "pending" },
-        "amazon": { "url": "", "status": "pending", "type": "affiliate" }
+        "amazon": { "url": "https://www.amazon.in/dp/B07K5DN5Q2?tag=instagaram077-21", "status": "active", "type": "affiliate", "asin": "B07K5DN5Q2", "title": "Gandhi Motivational Poster 12X18" }
       },
       "design_file": "",
       "source_reel": "",
-      "tags": ["leader", "freedom", "india"],
+      "tags": ["leader", "freedom", "india", "poster"],
       "featured": false,
-      "is_new": true,
-      "status": "draft",
+      "is_new": false,
+      "status": "active",
       "created": "2026-08-11",
       "clicks": 0,
       "sales": 0
     },
     {
-      "id": "dhoni-case-01",
+      "id": "dhoni-poster-01",
       "icon": "MS Dhoni",
       "category": "Sports",
-      "type": "Phone Case",
+      "type": "Poster",
       "emoji": "🏏",
-      "price_inr": 399,
-      "margin_inr": 180,
+      "price_inr": 199,
+      "margin_inr": 0,
+      "margin_type": "affiliate",
+      "commission_pct": 10,
       "platforms": {
-        "redbubble": { "url": "", "status": "pending" },
-        "printify": { "url": "", "status": "pending" }
+        "amazon": { "url": "https://www.amazon.in/dp/B07DYLQ72L?tag=instagaram077-21", "status": "active", "type": "affiliate", "asin": "B07DYLQ72L", "title": "MS Dhoni Cricket Player Motivational Pop Artwork" }
       },
       "design_file": "",
       "source_reel": "",
-      "tags": ["cricket", "captain", "sports"],
+      "tags": ["cricket", "captain", "sports", "poster"],
       "featured": true,
       "is_new": false,
-      "status": "draft",
+      "status": "active",
       "created": "2026-08-11",
       "clicks": 0,
       "sales": 0
     },
     {
-      "id": "virat-tee-01",
+      "id": "virat-poster-01",
       "icon": "Virat Kohli",
       "category": "Sports",
-      "type": "T-Shirt",
+      "type": "Poster",
       "emoji": "🏏",
-      "price_inr": 599,
-      "margin_inr": 250,
+      "price_inr": 249,
+      "margin_inr": 0,
+      "margin_type": "affiliate",
+      "commission_pct": 10,
       "platforms": {
-        "redbubble": { "url": "", "status": "pending" },
-        "printify": { "url": "", "status": "pending" }
+        "amazon": { "url": "https://www.amazon.in/dp/B0DRNNDTSM?tag=instagaram077-21", "status": "active", "type": "affiliate", "asin": "B0DRNNDTSM", "title": "Virat Kohli Poster for Room Wall Decoration" }
       },
       "design_file": "",
       "source_reel": "",
-      "tags": ["cricket", "king", "sports"],
+      "tags": ["cricket", "king", "sports", "poster"],
       "featured": false,
       "is_new": true,
-      "status": "draft",
+      "status": "active",
       "created": "2026-08-11",
       "clicks": 0,
       "sales": 0
@@ -171,61 +242,42 @@
       "category": "Science",
       "type": "Poster",
       "emoji": "🧪",
-      "price_inr": 349,
-      "margin_inr": 150,
+      "price_inr": 199,
+      "margin_inr": 0,
+      "margin_type": "affiliate",
+      "commission_pct": 10,
       "platforms": {
-        "redbubble": { "url": "", "status": "pending" },
-        "printify": { "url": "", "status": "pending" }
+        "amazon": { "url": "https://www.amazon.in/dp/B08FGHBJ3J?tag=instagaram077-21", "status": "active", "type": "affiliate", "asin": "B08FGHBJ3J", "title": "Albert Einstein Motivational Quotes Poster 18 X 12" }
       },
       "design_file": "",
       "source_reel": "",
-      "tags": ["science", "genius", "physics"],
+      "tags": ["science", "genius", "physics", "poster"],
       "featured": false,
       "is_new": false,
-      "status": "draft",
+      "status": "active",
       "created": "2026-08-11",
       "clicks": 0,
       "sales": 0
     },
     {
-      "id": "modi-sticker-01",
-      "icon": "Narendra Modi",
-      "category": "Leaders",
-      "type": "Sticker Pack",
-      "emoji": "🇮🇳",
-      "price_inr": 149,
-      "margin_inr": 80,
-      "platforms": {
-        "redbubble": { "url": "", "status": "pending" }
-      },
-      "design_file": "",
-      "source_reel": "",
-      "tags": ["leader", "india", "politics"],
-      "featured": false,
-      "is_new": false,
-      "status": "draft",
-      "created": "2026-08-11",
-      "clicks": 0,
-      "sales": 0
-    },
-    {
-      "id": "messi-tee-01",
+      "id": "messi-poster-01",
       "icon": "Lionel Messi",
       "category": "Sports",
-      "type": "T-Shirt",
+      "type": "Poster",
       "emoji": "⚽",
-      "price_inr": 599,
-      "margin_inr": 250,
+      "price_inr": 199,
+      "margin_inr": 0,
+      "margin_type": "affiliate",
+      "commission_pct": 10,
       "platforms": {
-        "redbubble": { "url": "", "status": "pending" },
-        "printify": { "url": "", "status": "pending" }
+        "amazon": { "url": "https://www.amazon.in/dp/B07SH91PGC?tag=instagaram077-21", "status": "active", "type": "affiliate", "asin": "B07SH91PGC", "title": "Lionel Messi The King Cartoon Poster Fanart 12 x 18" }
       },
       "design_file": "",
       "source_reel": "",
-      "tags": ["football", "goat", "sports"],
+      "tags": ["football", "goat", "sports", "cartoon", "poster"],
       "featured": false,
       "is_new": true,
-      "status": "draft",
+      "status": "active",
       "created": "2026-08-11",
       "clicks": 0,
       "sales": 0
@@ -234,64 +286,113 @@
       "id": "jobs-poster-01",
       "icon": "Steve Jobs",
       "category": "Business",
-      "type": "Poster",
+      "type": "Poster Pack",
       "emoji": "🍎",
-      "price_inr": 349,
-      "margin_inr": 150,
+      "price_inr": 299,
+      "margin_inr": 0,
+      "margin_type": "affiliate",
+      "commission_pct": 10,
       "platforms": {
-        "redbubble": { "url": "", "status": "pending" },
-        "printify": { "url": "", "status": "pending" }
+        "amazon": { "url": "https://www.amazon.in/dp/B0B1ZZJV3Q?tag=instagaram077-21", "status": "active", "type": "affiliate", "asin": "B0B1ZZJV3Q", "title": "Set of 6 Motivational Posters - Steve Jobs, Bill Gates, Elon Musk" }
       },
       "design_file": "",
       "source_reel": "",
-      "tags": ["tech", "business", "apple"],
+      "tags": ["tech", "business", "apple", "poster", "pack"],
       "featured": false,
       "is_new": false,
-      "status": "draft",
+      "status": "active",
       "created": "2026-08-11",
       "clicks": 0,
       "sales": 0
     },
     {
-      "id": "kalam-tee-01",
+      "id": "kalam-poster-01",
       "icon": "APJ Abdul Kalam",
       "category": "Science",
-      "type": "T-Shirt",
+      "type": "Poster Set",
       "emoji": "🚀",
-      "price_inr": 599,
-      "margin_inr": 250,
+      "price_inr": 299,
+      "margin_inr": 0,
+      "margin_type": "affiliate",
+      "commission_pct": 10,
       "platforms": {
-        "redbubble": { "url": "", "status": "pending" },
-        "printify": { "url": "", "status": "pending" }
+        "amazon": { "url": "https://www.amazon.in/dp/B07NPC1HG6?tag=instagaram077-21", "status": "active", "type": "affiliate", "asin": "B07NPC1HG6", "title": "Motivational Posters Set of 6 - Gandhi, Abdul Kalam, Einstein, Mandela" }
       },
       "design_file": "",
       "source_reel": "",
-      "tags": ["science", "india", "missile"],
+      "tags": ["science", "india", "missile", "poster", "motivational"],
       "featured": false,
       "is_new": false,
-      "status": "draft",
+      "status": "active",
       "created": "2026-08-11",
       "clicks": 0,
       "sales": 0
     },
     {
-      "id": "srk-hoodie-01",
+      "id": "srk-tee-01",
       "icon": "Shah Rukh Khan",
       "category": "Culture",
-      "type": "Hoodie",
+      "type": "T-Shirt",
       "emoji": "🎬",
-      "price_inr": 1299,
-      "margin_inr": 500,
+      "price_inr": 599,
+      "margin_inr": 0,
+      "margin_type": "affiliate",
+      "commission_pct": 8,
       "platforms": {
-        "redbubble": { "url": "", "status": "pending" },
-        "qikink": { "url": "", "status": "pending" }
+        "amazon": { "url": "https://www.amazon.in/dp/B0FZ56138W?tag=instagaram077-21", "status": "active", "type": "affiliate", "asin": "B0FZ56138W", "title": "SRK Baadshah Black Oversized T-Shirt" }
       },
       "design_file": "",
       "source_reel": "",
-      "tags": ["bollywood", "king", "culture"],
+      "tags": ["bollywood", "king", "culture", "tshirt"],
       "featured": false,
       "is_new": true,
-      "status": "draft",
+      "status": "active",
+      "created": "2026-08-11",
+      "clicks": 0,
+      "sales": 0
+    },
+    {
+      "id": "srk-posters-01",
+      "icon": "Shah Rukh Khan",
+      "category": "Culture",
+      "type": "Mini Poster Set",
+      "emoji": "🎬",
+      "price_inr": 299,
+      "margin_inr": 0,
+      "margin_type": "affiliate",
+      "commission_pct": 10,
+      "platforms": {
+        "amazon": { "url": "https://www.amazon.in/dp/B0DFJTWPK7?tag=instagaram077-21", "status": "active", "type": "affiliate", "asin": "B0DFJTWPK7", "title": "Shah Rukh Khan Mini Posters Set of 40" }
+      },
+      "design_file": "",
+      "source_reel": "",
+      "tags": ["bollywood", "king", "culture", "poster", "collection"],
+      "featured": false,
+      "is_new": true,
+      "status": "active",
+      "created": "2026-08-11",
+      "clicks": 0,
+      "sales": 0
+    },
+    {
+      "id": "dhoni-case-01",
+      "icon": "MS Dhoni",
+      "category": "Sports",
+      "type": "Phone Case",
+      "emoji": "🏏",
+      "price_inr": 299,
+      "margin_inr": 0,
+      "margin_type": "affiliate",
+      "commission_pct": 6,
+      "platforms": {
+        "amazon": { "url": "https://www.amazon.in/dp/B07927V1VS?tag=instagaram077-21", "status": "active", "type": "affiliate", "asin": "B07927V1VS", "title": "Dhoni Cartoon Case Cover for iPhone" }
+      },
+      "design_file": "",
+      "source_reel": "",
+      "tags": ["cricket", "captain", "sports", "phonecase"],
+      "featured": false,
+      "is_new": false,
+      "status": "active",
       "created": "2026-08-11",
       "clicks": 0,
       "sales": 0
@@ -303,28 +404,35 @@
       "name": "Sports Legends",
       "desc": "The greatest athletes of all time, animated in our signature style",
       "emojis": "🏏⚽🏀",
-      "product_ids": ["sachin-tee-01", "ronaldo-tee-01", "dhoni-case-01", "virat-tee-01", "messi-tee-01"]
+      "product_ids": ["sachin-poster-01", "sachin-frame-01", "ronaldo-poster-01", "ronaldo-tee-01", "dhoni-poster-01", "dhoni-case-01", "virat-poster-01", "messi-poster-01"]
     },
     {
       "id": "tech-titans",
       "name": "Tech Titans",
       "desc": "Visionaries who changed the world, now on your wall",
       "emojis": "🚀🍎💡",
-      "product_ids": ["musk-poster-01", "jobs-poster-01"]
+      "product_ids": ["musk-poster-01", "techpack-poster-01", "jobs-poster-01"]
     },
     {
       "id": "indian-icons",
       "name": "Indian Icons",
       "desc": "Celebrate India's greatest — leaders, scientists, athletes",
       "emojis": "🇮🇳🏏🚀",
-      "product_ids": ["sachin-tee-01", "gandhi-mug-01", "dhoni-case-01", "virat-tee-01", "modi-sticker-01", "kalam-tee-01"]
+      "product_ids": ["sachin-poster-01", "sachin-frame-01", "gandhi-poster-01", "dhoni-poster-01", "dhoni-case-01", "virat-poster-01", "kalam-poster-01", "srk-tee-01", "srk-posters-01"]
     },
     {
       "id": "science-minds",
       "name": "Science & Minds",
       "desc": "The brilliant minds that shaped our understanding of the universe",
       "emojis": "🧪🔬🚀",
-      "product_ids": ["einstein-poster-01", "kalam-tee-01"]
+      "product_ids": ["einstein-poster-01", "kalam-poster-01"]
+    },
+    {
+      "id": "bollywood",
+      "name": "Bollywood Icons",
+      "desc": "The kings and queens of Indian cinema, in cartoon style",
+      "emojis": "🎬🎭🌟",
+      "product_ids": ["srk-tee-01", "srk-posters-01"]
     }
   ]
 }
