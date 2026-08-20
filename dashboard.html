@@ -13,6 +13,14 @@
 }
 html{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased}
 body{max-width:920px;margin:0 auto;padding:0 1.25rem 4rem;position:relative}
+#pageContent{transition:opacity .3s,filter .3s}
+#pageContent.stale{opacity:.5;filter:grayscale(.5)}
+.stale-banner{
+  position:sticky;top:0;z-index:50;display:none;
+  background:var(--warn);color:#1a0d00;font-weight:800;font-size:.75rem;
+  text-align:center;padding:.6rem 1.25rem;margin:0 -1.25rem;
+}
+.stale-banner.show{display:block}
 
 /* ---------- Header ---------- */
 .header{text-align:center;padding:2rem 0 1.5rem;position:relative;overflow:hidden}
@@ -213,6 +221,8 @@ footer a{color:var(--text3)}
 .upload-status{font-size:.62rem;margin-top:.35rem}
 </style>
 
+<div class="stale-banner" id="staleBanner"></div>
+<div id="pageContent">
 <div class="header">
   <img src="logo_dark.png" alt="">
   <h1>Insta Garam <span class="hl">Command Center</span></h1>
@@ -288,12 +298,13 @@ footer a{color:var(--text3)}
 </div>
 
 <footer>Insta Garam Studio · <a class="link" href="/">Merch store</a> · Live data via tunnel from the studio machine</footer>
+</div><!-- /pageContent -->
 
 <script>
 // Public read-only+access-code-gated-write status API (cloudflared tunnel → local prompt_board_server.py, port 8811).
 // Quick-tunnel URLs are NOT permanent — if this stops loading, the tunnel was
 // restarted and this constant needs updating to the new trycloudflare.com URL.
-const API_BASE = 'https://cdt-cia-programmers-cooking.trycloudflare.com';
+const API_BASE = 'https://upgrading-circles-aerospace-proxy.trycloudflare.com';
 
 function showTab(name) {
   document.querySelectorAll('.tabpanel').forEach(el => el.classList.remove('active'));
@@ -314,11 +325,37 @@ function fmtDate(iso) {
   return new Date(iso).toLocaleString(undefined, {month:'short', day:'numeric', hour:'2-digit', minute:'2-digit'});
 }
 
+// --- Freshness tracking: every fetch cycle marks itself ok/failed here.
+// If the MOST RECENT command-center fetch failed, the whole page is visibly
+// marked stale (dimmed + banner) instead of silently leaving old numbers on
+// screen looking like live data — that ambiguity was the actual bug the CEO
+// caught, not the underlying data itself. ---
+let lastSuccessTime = null;
+let consecutiveFailures = 0;
+
+function markFresh() {
+  lastSuccessTime = new Date();
+  consecutiveFailures = 0;
+  document.getElementById('pageContent').classList.remove('stale');
+  document.getElementById('staleBanner').classList.remove('show');
+}
+
+function markStale(reason) {
+  consecutiveFailures++;
+  document.getElementById('pageContent').classList.add('stale');
+  const banner = document.getElementById('staleBanner');
+  banner.classList.add('show');
+  const since = lastSuccessTime ? `last confirmed live ${Math.round((Date.now()-lastSuccessTime)/60000)}m ago` : 'never successfully loaded this session';
+  banner.textContent = `⚠️ Data below is STALE — ${reason} (${since}). Numbers are not current.`;
+}
+
 async function loadCommandCenter() {
   try {
     const res = await fetch(API_BASE + '/api/command_center');
+    if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     const k = data.kpis;
+    markFresh();
     document.getElementById('lastLoaded').textContent = 'Live — updated ' + new Date().toLocaleTimeString();
 
     document.getElementById('kpiGrid').innerHTML = `
@@ -372,6 +409,7 @@ async function loadCommandCenter() {
     `).join('') : '<div class="empty">Nothing posted yet.</div>';
   } catch (e) {
     document.getElementById('lastLoaded').textContent = '⚠️ Offline — studio machine or tunnel unreachable';
+    markStale('studio machine or tunnel unreachable');
   }
 }
 
