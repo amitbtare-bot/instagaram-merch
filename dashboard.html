@@ -78,6 +78,38 @@ a.link{color:var(--gold);text-decoration:none}
 footer{text-align:center;font-size:.65rem;color:var(--text3);margin-top:1.5rem}
 footer a{color:var(--text3)}
 @media (max-width:600px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}
+
+.token-gate{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin-bottom:.8rem;font-size:.7rem}
+.token-gate input{
+  background:var(--card2);border:1px solid var(--border2);color:var(--text);border-radius:7px;
+  padding:.45rem .6rem;font-size:.7rem;flex:1;min-width:160px;
+}
+.token-gate button{
+  background:var(--card2);color:var(--text);border:1px solid var(--border2);border-radius:7px;
+  padding:.45rem .8rem;font-size:.65rem;font-weight:700;cursor:pointer;
+}
+.token-status{font-size:.65rem}
+.token-status.ok{color:var(--green)}
+.token-status.bad{color:var(--warn)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.8rem}
+.card{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:.9rem}
+.card h3{font-size:.78rem;margin-bottom:.2rem}
+.card .meta{font-size:.6rem;color:var(--text3);margin-bottom:.6rem}
+.prompt-block{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:.5rem;margin-bottom:.5rem}
+.prompt-block .fname{font-size:.6rem;color:var(--gold);margin-bottom:.3rem}
+.prompt-block textarea{
+  width:100%;background:transparent;color:var(--text);border:none;resize:vertical;
+  font-family:ui-monospace,monospace;font-size:.62rem;height:70px;
+}
+.copy-btn{background:var(--card);color:var(--text);border:1px solid var(--border2);border-radius:6px;padding:.3rem .6rem;font-size:.6rem;cursor:pointer}
+.drop-zone{
+  border:2px dashed var(--border2);border-radius:8px;padding:.7rem;text-align:center;
+  font-size:.65rem;color:var(--text3);margin-top:.5rem;
+}
+.drop-zone.drag{border-color:var(--accent);color:var(--accent)}
+.drop-zone label{color:var(--gold);cursor:pointer}
+.upload-status{font-size:.62rem;margin-top:.35rem}
+.locked-note{font-size:.65rem;color:var(--text3);text-align:center;padding:1rem}
 </style>
 
 <div class="header">
@@ -121,10 +153,30 @@ footer a{color:var(--text3)}
   <div id="postedList"></div>
 </div>
 
+<div class="panel">
+  <h2>🎬 Needs Video <span class="badge" id="needsVideoCount">0</span></h2>
+  <div class="sub" style="font-size:.68rem;color:var(--text2);margin-bottom:.7rem">Copy the prompt into your Gemini browser session, generate the clip, then upload it here — updates the studio machine's pipeline directly.</div>
+  <div class="token-gate">
+    <input type="password" id="tokenInput" placeholder="Upload access code (ask the CEO)">
+    <button onclick="saveToken()">Save</button>
+    <span class="token-status" id="tokenStatus"></span>
+  </div>
+  <div id="needsVideoCards" class="cards"></div>
+</div>
+
+<div class="panel">
+  <h2>📺 YouTube <span class="badge" id="ytUploadedCount">0</span></h2>
+  <div id="ytAnalyticsBody" class="sub">Loading…</div>
+  <div class="sub" style="margin-top:.7rem">Pending mirror to YouTube Shorts <span class="badge" id="ytPendingCount">0</span></div>
+  <div id="ytPendingList"></div>
+  <div class="sub" style="margin-top:.7rem">Recent uploads</div>
+  <div id="ytRecentList"></div>
+</div>
+
 <footer>Insta Garam Studio · <a class="link" href="/">Merch store</a> · Live data via tunnel from the studio machine</footer>
 
 <script>
-// Public read-only status API (cloudflared tunnel → local public_status_server.py, port 8812).
+// Public read-only+access-code-gated-write status API (cloudflared tunnel → local prompt_board_server.py, port 8811).
 // Quick-tunnel URLs are NOT permanent — if this stops loading, the tunnel was
 // restarted and this constant needs updating to the new trycloudflare.com URL.
 const API_BASE = 'https://regularly-python-occurring-databases.trycloudflare.com';
@@ -258,10 +310,182 @@ async function loadAnalytics() {
   } catch (e) { /* silent */ }
 }
 
+// --- Upload access code (never shipped in this file — CEO types it in once,
+// kept only in this browser's localStorage). Gates POST /api/upload and
+// POST /api/youtube/upload on the tunneled server. ---
+let UPLOAD_TOKEN = localStorage.getItem('igUploadToken') || '';
+
+function saveToken() {
+  const v = document.getElementById('tokenInput').value.trim();
+  if (!v) return;
+  UPLOAD_TOKEN = v;
+  localStorage.setItem('igUploadToken', v);
+  document.getElementById('tokenInput').value = '';
+  updateTokenStatus();
+}
+function updateTokenStatus() {
+  const el = document.getElementById('tokenStatus');
+  if (UPLOAD_TOKEN) {
+    el.textContent = '✓ code saved on this device';
+    el.className = 'token-status ok';
+  } else {
+    el.textContent = 'needed to upload — read-only until set';
+    el.className = 'token-status bad';
+  }
+}
+
+async function loadBoard() {
+  try {
+    const res = await fetch(API_BASE + '/api/board');
+    const data = await res.json();
+    document.getElementById('needsVideoCount').textContent = data.summary.needs_video;
+
+    const container = document.getElementById('needsVideoCards');
+    if (!data.groups.prompts_ready.length) {
+      container.innerHTML = '<div class="empty">Nothing pending — every package has raw footage.</div>';
+      return;
+    }
+    container.innerHTML = data.groups.prompts_ready.map(card => `
+      <div class="card">
+        <h3>${card.title}</h3>
+        <div class="meta">${card.series || ''} ${card.date ? '· ' + card.date + ' ' + (card.slot||'') : ''}</div>
+        ${card.prompt_texts.map(p => `
+          <div class="prompt-block">
+            <div class="fname">${p.filename}</div>
+            <textarea readonly>${p.text.replace(/</g,'&lt;')}</textarea>
+            <button class="copy-btn" onclick="copyPrompt(this)" data-text="${encodeURIComponent(p.text)}">Copy</button>
+          </div>
+        `).join('')}
+        <div class="drop-zone" id="dz-${card.index}"
+             ondragover="event.preventDefault(); this.classList.add('drag')"
+             ondragleave="this.classList.remove('drag')"
+             ondrop="handleDrop(event, ${card.index})">
+          Drop generated video(s) here, or
+          <label>browse<input type="file" accept="video/*" multiple style="display:none"
+            onchange="handleUpload(${card.index}, this.files)"></label>
+        </div>
+        <div class="upload-status" id="status-${card.index}"></div>
+      </div>
+    `).join('');
+  } catch (e) { /* silent */ }
+}
+
+function copyPrompt(btn) {
+  const text = decodeURIComponent(btn.getAttribute('data-text'));
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = 'Copied ✓';
+    setTimeout(() => btn.textContent = orig, 1500);
+  });
+}
+
+function handleDrop(ev, index) {
+  ev.preventDefault();
+  document.getElementById('dz-' + index).classList.remove('drag');
+  handleUpload(index, ev.dataTransfer.files);
+}
+
+async function handleUpload(index, files) {
+  if (!files.length) return;
+  const statusEl = document.getElementById('status-' + index);
+  if (!UPLOAD_TOKEN) {
+    statusEl.style.color = 'var(--warn)';
+    statusEl.textContent = 'Enter the upload access code above first.';
+    return;
+  }
+  statusEl.textContent = 'Uploading…';
+  const form = new FormData();
+  for (const f of files) form.append('files', f);
+  try {
+    const res = await fetch(API_BASE + '/api/upload/' + index, {
+      method: 'POST', body: form, headers: { 'X-Upload-Token': UPLOAD_TOKEN },
+    });
+    const data = await res.json();
+    if (data.error) {
+      statusEl.style.color = 'var(--warn)';
+      statusEl.textContent = 'Error: ' + data.error;
+    } else {
+      statusEl.style.color = 'var(--green)';
+      statusEl.textContent = `Saved: ${data.saved.join(', ')} → stage now "${data.new_stage}"`;
+      setTimeout(() => { loadBoard(); loadCommandCenter(); }, 1200);
+    }
+  } catch (e) {
+    statusEl.style.color = 'var(--warn)';
+    statusEl.textContent = 'Upload failed: ' + e;
+  }
+}
+
+async function loadYoutube() {
+  try {
+    const res = await fetch(API_BASE + '/api/youtube');
+    const data = await res.json();
+    document.getElementById('ytUploadedCount').textContent = data.total_uploaded;
+    document.getElementById('ytPendingCount').textContent = data.pending.length;
+
+    const l = data.latest_analytics;
+    const el = document.getElementById('ytAnalyticsBody');
+    if (!l) {
+      el.innerHTML = '<div class="empty">No channel snapshot yet.</div>';
+    } else {
+      let html = `
+        <div class="kpi-grid" style="margin-bottom:.5rem">
+          <div class="kpi"><div class="num">${l.subscriber_count ?? '—'}</div><div class="label">Subscribers</div></div>
+          <div class="kpi"><div class="num">${l.view_count ?? '—'}</div><div class="label">Views</div></div>
+          <div class="kpi"><div class="num">${l.video_count ?? '—'}</div><div class="label">Videos</div></div>
+        </div>
+        <div class="timestamp">Last checked: ${new Date(l.timestamp).toLocaleString()}</div>
+      `;
+      if (l.error) html += `<div class="err-banner">⚠️ ${l.error}</div>`;
+      el.innerHTML = html;
+    }
+
+    document.getElementById('ytPendingList').innerHTML = data.pending.length ? data.pending.slice(0, 15).map(p => `
+      <div class="list-item">
+        <span>${p.name.replace(/_/g,' ')}</span>
+        <button class="copy-btn" onclick="uploadToYoutube('${p.name.replace(/'/g,"\\'")}', this)">Upload to YouTube</button>
+      </div>
+    `).join('') : '<div class="empty">Everything processed is already mirrored to YouTube.</div>';
+
+    document.getElementById('ytRecentList').innerHTML = data.recent_uploads.length ? data.recent_uploads.map(v => `
+      <div class="list-item">
+        <span>${v.name.replace(/_/g,' ')}</span>
+        <span><a class="link" href="${v.url}" target="_blank">view</a></span>
+      </div>
+    `).join('') : '<div class="empty">Nothing uploaded yet.</div>';
+  } catch (e) { /* silent */ }
+}
+
+async function uploadToYoutube(name, btn) {
+  if (!UPLOAD_TOKEN) { btn.textContent = 'Enter access code above first'; return; }
+  btn.disabled = true;
+  btn.textContent = 'Starting…';
+  try {
+    const res = await fetch(API_BASE + '/api/youtube/upload', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Upload-Token': UPLOAD_TOKEN },
+      body: JSON.stringify({ name }),
+    });
+    const data = await res.json();
+    if (data.error) {
+      btn.textContent = 'Error: ' + data.error;
+    } else {
+      btn.textContent = 'Uploading… (see Currently Processing)';
+      setTimeout(loadYoutube, 5000);
+    }
+  } catch (e) {
+    btn.textContent = 'Failed: ' + e;
+  }
+}
+
+updateTokenStatus();
 loadCommandCenter();
 loadActivity();
 loadAnalytics();
+loadBoard();
+loadYoutube();
 setInterval(loadCommandCenter, 15000);
 setInterval(loadActivity, 4000);
 setInterval(loadAnalytics, 30000);
+setInterval(loadBoard, 30000);
+setInterval(loadYoutube, 30000);
 </script>
