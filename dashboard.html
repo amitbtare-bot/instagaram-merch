@@ -439,10 +439,10 @@ async function loadYoutube() {
       el.innerHTML = html;
     }
 
-    document.getElementById('ytPendingList').innerHTML = data.pending.length ? data.pending.slice(0, 15).map(p => `
+    document.getElementById('ytPendingList').innerHTML = data.pending.length ? data.pending.slice(0, 20).map(p => `
       <div class="list-item">
-        <span>${p.name.replace(/_/g,' ')}</span>
-        <button class="copy-btn" onclick="uploadToYoutube('${p.name.replace(/'/g,"\\'")}', this)">Upload to YouTube</button>
+        <span>${p.name.replace(/_/g,' ')}${p.likely_duplicate_of ? ` <span class="pill overdue">looks like ${p.likely_duplicate_of.replace(/_/g,' ')}</span>` : ''}</span>
+        <button class="copy-btn" onclick="uploadToYoutube('${p.name.replace(/'/g,"\\'")}', this, ${p.likely_duplicate_of ? 'true' : 'false'})">${p.likely_duplicate_of ? 'Upload anyway' : 'Upload to YouTube'}</button>
       </div>
     `).join('') : '<div class="empty">Everything processed is already mirrored to YouTube.</div>';
 
@@ -455,15 +455,16 @@ async function loadYoutube() {
   } catch (e) { /* silent */ }
 }
 
-async function uploadToYoutube(name, btn) {
+async function uploadToYoutube(name, btn, isDuplicate) {
   if (!UPLOAD_TOKEN) { btn.textContent = 'Enter access code above first'; return; }
+  if (isDuplicate && !confirm('This looks like a duplicate of a video already on the channel. Upload anyway?')) return;
   btn.disabled = true;
   btn.textContent = 'Starting…';
   try {
     const res = await fetch(API_BASE + '/api/youtube/upload', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'X-Upload-Token': UPLOAD_TOKEN },
-      body: JSON.stringify({ name }),
+      body: JSON.stringify({ name, force: isDuplicate }),
     });
     const data = await res.json();
     if (data.error) {
