@@ -1,0 +1,65 @@
+<meta charset="UTF-8">
+<title>Insta Garam — Command Center</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#080B14;--bg2:#0D1120;--card:#111827;--card2:#0F172A;
+  --border:#1F2937;--border2:#374151;
+  --text:#F3F4F6;--text2:#9CA3AF;--text3:#6B7280;
+  --gold:#D4A853;--accent:#EC4899;--purple:#8B5CF6;--green:#10B981;
+}
+html,body{height:100%}
+body{
+  background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,'Segoe UI',sans-serif;
+  -webkit-font-smoothing:antialiased;display:flex;align-items:center;justify-content:center;
+  min-height:100vh;padding:1.5rem;
+}
+.wrap{max-width:480px;width:100%;text-align:center;position:relative}
+.glow{
+  position:absolute;inset:-60px;z-index:0;pointer-events:none;
+  background:radial-gradient(circle at 30% 20%,#8B5CF625,transparent 55%),
+             radial-gradient(circle at 70% 80%,#EC489920,transparent 55%);
+}
+.card{
+  position:relative;z-index:1;background:var(--card);border:1px solid var(--border);
+  border-radius:16px;padding:2.5rem 2rem;
+}
+.card img{width:60px;height:60px;border-radius:14px;margin-bottom:1rem}
+h1{font-size:1.4rem;font-weight:900;letter-spacing:-.02em;margin-bottom:.4rem}
+h1 .hl{background:linear-gradient(135deg,#8B5CF6,#EC4899,#D4A853);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sub{font-size:.8rem;color:var(--text2);margin-bottom:1.75rem;line-height:1.5}
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,#8B5CF6,#EC4899);
+  color:#fff;text-decoration:none;font-weight:700;font-size:.85rem;padding:.85rem 1.6rem;
+  border-radius:10px;transition:transform .15s,box-shadow .15s;
+}
+.btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px #EC489940}
+.note{
+  margin-top:1.5rem;font-size:.68rem;color:var(--text3);line-height:1.6;
+  border-top:1px solid var(--border);padding-top:1.25rem;
+}
+.note b{color:var(--text2)}
+.dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);margin-right:.35rem}
+footer{margin-top:1.25rem;font-size:.65rem;color:var(--text3)}
+footer a{color:var(--text3)}
+</style>
+
+<div class="wrap">
+  <div class="glow"></div>
+  <div class="card">
+    <img src="logo_dark.png" alt="">
+    <h1>Insta Garam <span class="hl">Command Center</span></h1>
+    <p class="sub">Live pipeline board, prompt queue, and account progress tracking for the studio.</p>
+    <a class="btn" href="http://localhost:8811" target="_blank">
+      <span class="dot"></span> Open Command Center
+    </a>
+    <div class="note">
+      <b>Runs locally on the studio machine.</b> This link only connects while the
+      dashboard server is running on that computer — open this page there to
+      launch it. It isn't reachable from other devices.
+    </div>
+  </div>
+  <footer>Insta Garam Studio · <a href="/">Merch store</a></footer>
+</div>
