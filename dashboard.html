@@ -9,90 +9,167 @@
   --border:#1F2937;--border2:#374151;
   --text:#F3F4F6;--text2:#9CA3AF;--text3:#6B7280;
   --gold:#D4A853;--accent:#EC4899;--purple:#8B5CF6;--green:#10B981;--warn:#F97316;--blue:#3B82F6;
+  --grad: linear-gradient(135deg,#8B5CF6,#EC4899,#D4A853);
 }
 html{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased}
-body{max-width:900px;margin:0 auto;padding:1.5rem 1.25rem 4rem}
+body{max-width:920px;margin:0 auto;padding:0 1.25rem 4rem;position:relative}
 
-.header{text-align:center;padding:1.5rem 0 1.25rem;position:relative}
-.header img{width:56px;height:56px;border-radius:12px;margin-bottom:.6rem}
-.header h1{font-size:1.5rem;font-weight:900;letter-spacing:-.02em}
-.header h1 .hl{background:linear-gradient(135deg,#8B5CF6,#EC4899,#D4A853);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.header .sub{font-size:.75rem;color:var(--text3);margin-top:.3rem}
+/* ---------- Header ---------- */
+.header{text-align:center;padding:2rem 0 1.5rem;position:relative;overflow:hidden}
+.header::before{
+  content:'';position:absolute;inset:-40% -20%;z-index:0;pointer-events:none;
+  background:radial-gradient(circle at 25% 20%,#8B5CF625,transparent 55%),
+             radial-gradient(circle at 75% 70%,#EC489922,transparent 55%),
+             radial-gradient(circle at 50% 100%,#D4A85318,transparent 60%);
+  animation:driftBlob 16s ease-in-out infinite alternate;
+}
+@keyframes driftBlob{0%{transform:translate(0,0) scale(1)}100%{transform:translate(3%,-3%) scale(1.08)}}
+.header>*{position:relative;z-index:1}
+.header img{width:60px;height:60px;border-radius:14px;margin-bottom:.7rem;box-shadow:0 6px 24px rgba(139,92,246,.35)}
+.header h1{font-size:1.7rem;font-weight:900;letter-spacing:-.02em}
+.header h1 .hl{background:var(--grad);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradFlow 6s ease infinite}
+@keyframes gradFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.header .sub{font-size:.75rem;color:var(--text3);margin-top:.35rem}
 .status-pill{
   display:inline-flex;align-items:center;gap:.4rem;font-size:.65rem;font-weight:700;
-  color:var(--green);background:#10B98115;border:1px solid #10B98140;padding:.3rem .7rem;
-  border-radius:20px;margin-top:.6rem;text-transform:uppercase;letter-spacing:.05em;
+  color:var(--green);background:#10B98115;border:1px solid #10B98140;padding:.35rem .8rem;
+  border-radius:20px;margin-top:.7rem;text-transform:uppercase;letter-spacing:.05em;
 }
-.status-dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green)}
 
 .local-cta{
   display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
-  background:linear-gradient(135deg,#8B5CF615,#EC489915);border:1px solid var(--border2);
+  background:linear-gradient(135deg,#8B5CF618,#EC489918);border:1px solid var(--border2);
   border-radius:12px;padding:.9rem 1.1rem;margin-bottom:1.5rem;font-size:.75rem;color:var(--text2);
 }
 .local-cta a{
-  background:linear-gradient(135deg,#8B5CF6,#EC4899);color:#fff;text-decoration:none;font-weight:700;
-  font-size:.7rem;padding:.55rem 1rem;border-radius:8px;white-space:nowrap;
+  background:var(--grad);background-size:200% auto;color:#fff;text-decoration:none;font-weight:700;
+  font-size:.7rem;padding:.6rem 1.1rem;border-radius:8px;white-space:nowrap;
+  box-shadow:0 4px 16px rgba(236,72,153,.25);transition:background-position .3s;
 }
+.local-cta a:hover{background-position:100% 0}
 
+/* ---------- KPIs ---------- */
 .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin-bottom:1.25rem}
-.kpi{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.8rem .7rem}
-.kpi .num{font-size:1.3rem;font-weight:800}
-.kpi .label{font-size:.6rem;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-top:.15rem}
-.kpi.warn .num{color:var(--warn)}
-.bar{height:8px;border-radius:5px;overflow:hidden;display:flex;background:var(--card2);margin-bottom:1.5rem}
-.bar>div{height:100%}
+.kpi{
+  background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.85rem .7rem;
+  transition:transform .2s,border-color .2s;
+}
+.kpi:hover{transform:translateY(-2px);border-color:var(--purple)}
+.kpi .num{font-size:1.4rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200% auto}
+.kpi .label{font-size:.6rem;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-top:.2rem}
+.kpi.warn .num{background:none;-webkit-text-fill-color:initial;color:var(--warn)}
+.bar{height:9px;border-radius:5px;overflow:hidden;display:flex;background:var(--card2);margin-bottom:1.5rem;box-shadow:inset 0 0 0 1px var(--border)}
+.bar>div{height:100%;transition:width .5s ease}
 
+/* ---------- Tabs ---------- */
+.tabbar{display:flex;gap:.4rem;margin-bottom:1.25rem;border-bottom:1px solid var(--border);overflow-x:auto}
+.tabbtn{
+  background:none;border:none;color:var(--text3);font-size:.75rem;font-weight:700;
+  padding:.6rem 1rem;cursor:pointer;white-space:nowrap;position:relative;top:1px;
+  border-bottom:2px solid transparent;transition:color .2s;
+}
+.tabbtn:hover{color:var(--text2)}
+.tabbtn.active{color:var(--text);border-bottom:2px solid transparent;border-image:var(--grad) 1}
+.tabpanel{display:none}
+.tabpanel.active{display:block;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+/* ---------- Panels ---------- */
 .panel{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.2rem;margin-bottom:1.25rem;position:relative;overflow:hidden}
 .panel h2{font-size:.85rem;font-weight:800;margin-bottom:.7rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap}
 .badge{font-size:.6rem;padding:.15rem .5rem;border-radius:20px;background:var(--card2);color:var(--text3)}
 
-.attention{background:#F9731610;border-color:#F9731650}
+.attention{background:#F9731612;border-color:#F9731660;animation:attnGlow 2.5s ease-in-out infinite}
+@keyframes attnGlow{0%,100%{box-shadow:0 0 0 rgba(249,115,22,0)}50%{box-shadow:0 0 18px rgba(249,115,22,.18)}}
 .attention h2{color:var(--warn)}
 
-.activity-panel.working{background:linear-gradient(120deg,#8B5CF610,#EC489910,#8B5CF610);background-size:200% 200%;border-color:var(--accent);animation:shimmer 3s ease infinite}
-.activity-panel.working::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(236,72,153,.10),transparent);background-size:200% 100%;animation:sweep 2.2s linear infinite}
+/* ---------- Currently Processing — the big animated one ---------- */
+.activity-panel{transition:all .3s ease}
+.activity-panel.working{
+  background:linear-gradient(120deg,#8B5CF618,#EC489918,#D4A85315,#8B5CF618);
+  background-size:300% 300%;border:1px solid var(--accent);
+  animation:shimmer 4s ease infinite;padding:1.4rem 1.3rem;
+  box-shadow:0 0 30px rgba(236,72,153,.15);
+}
+.activity-panel.working::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(236,72,153,.14),transparent);
+  background-size:250% 100%;animation:sweep 2s linear infinite;
+}
 @keyframes shimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-@keyframes sweep{0%{background-position:200% 0}100%{background-position:-200% 0}}
-.live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-right:.4rem;box-shadow:0 0 0 0 rgba(236,72,153,.6);animation:pulse-ring 1.4s infinite}
-@keyframes pulse-ring{0%{box-shadow:0 0 0 0 rgba(236,72,153,.6)}70%{box-shadow:0 0 0 7px rgba(236,72,153,0)}100%{box-shadow:0 0 0 0 rgba(236,72,153,0)}}
-.activity-step{font-size:.95rem;font-weight:700;margin:.3rem 0 .15rem}
+@keyframes sweep{0%{background-position:250% 0}100%{background-position:-250% 0}}
+.activity-panel h2{font-size:.95rem}
+.working .activity-panel-icon{
+  display:inline-block;font-size:1.1rem;margin-right:.4rem;
+  animation:spin 2.5s linear infinite;
+}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.live-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--accent);margin-right:.5rem;box-shadow:0 0 0 0 rgba(236,72,153,.6);animation:pulse-ring 1.3s infinite}
+@keyframes pulse-ring{0%{box-shadow:0 0 0 0 rgba(236,72,153,.6)}70%{box-shadow:0 0 0 9px rgba(236,72,153,0)}100%{box-shadow:0 0 0 0 rgba(236,72,153,0)}}
+.activity-step{font-size:1.05rem;font-weight:800;margin:.5rem 0 .3rem}
 .activity-dots::after{content:'';display:inline-block;width:1.2em;text-align:left;animation:dots 1.4s steps(4) infinite}
 @keyframes dots{0%{content:''}25%{content:'.'}50%{content:'..'}75%{content:'...'}100%{content:''}}
-.activity-detail{font-size:.7rem;color:var(--text2)}
+.activity-detail{font-size:.72rem;color:var(--text2)}
+
+.milestones{display:flex;align-items:center;margin:1rem 0 .3rem}
+.milestone-track{flex:1;height:4px;background:var(--card2);border-radius:3px;position:relative;margin:0 2px}
+.milestone-track .fill{
+  position:absolute;left:0;top:0;bottom:0;border-radius:3px;
+  background:var(--grad);background-size:200% auto;animation:gradFlow 3s ease infinite;
+  transition:width .6s ease;
+}
+.milestone-dot{
+  width:16px;height:16px;border-radius:50%;background:var(--card2);border:2px solid var(--border2);
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.55rem;font-weight:800;
+  color:var(--text3);transition:all .4s ease;z-index:1;
+}
+.milestone-dot.done{background:var(--grad);border-color:transparent;color:#fff}
+.milestone-dot.current{
+  border-color:var(--accent);color:var(--accent);
+  box-shadow:0 0 0 4px rgba(236,72,153,.15);
+  animation:dotPulse 1.2s ease-in-out infinite;
+}
+@keyframes dotPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.25)}}
+.milestone-label{font-size:.6rem;color:var(--text3);text-align:center;margin-top:1.2rem}
+
 .hist-item{font-size:.65rem;color:var(--text3);padding:.3rem 0;border-bottom:1px solid var(--border)}
 .hist-item:last-child{border-bottom:none}
 .outcome-done{color:var(--green)}
 .outcome-error{color:var(--warn)}
 
-.list-item{font-size:.7rem;padding:.5rem 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;gap:.6rem}
+/* ---------- Lists ---------- */
+.list-item{font-size:.7rem;padding:.55rem 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;gap:.6rem;transition:background .15s}
+.list-item:hover{background:var(--card2)}
 .list-item:last-child{border-bottom:none}
-.pill{font-size:.55rem;padding:.1rem .45rem;border-radius:10px}
+.pill{font-size:.55rem;padding:.15rem .5rem;border-radius:10px}
 .pill.overdue{background:#F9731620;color:var(--warn)}
 .pill.soon{background:#3B82F620;color:var(--blue)}
 .pill.posted{background:#10B98120;color:var(--green)}
 a.link{color:var(--gold);text-decoration:none}
-.empty{color:var(--text3);font-size:.7rem;padding:.4rem 0}
+.empty{color:var(--text3);font-size:.7rem;padding:.6rem 0;text-align:center}
 .timestamp{font-size:.65rem;color:var(--text3)}
 .err-banner{background:#F9731615;border:1px solid var(--warn);color:var(--warn);border-radius:8px;padding:.5rem .7rem;font-size:.65rem;margin-top:.5rem}
 footer{text-align:center;font-size:.65rem;color:var(--text3);margin-top:1.5rem}
 footer a{color:var(--text3)}
 @media (max-width:600px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}
 
+/* ---------- Upload / token gate ---------- */
 .token-gate{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin-bottom:.8rem;font-size:.7rem}
 .token-gate input{
   background:var(--card2);border:1px solid var(--border2);color:var(--text);border-radius:7px;
-  padding:.45rem .6rem;font-size:.7rem;flex:1;min-width:160px;
+  padding:.5rem .6rem;font-size:.7rem;flex:1;min-width:160px;
 }
 .token-gate button{
-  background:var(--card2);color:var(--text);border:1px solid var(--border2);border-radius:7px;
-  padding:.45rem .8rem;font-size:.65rem;font-weight:700;cursor:pointer;
+  background:var(--grad);color:#fff;border:none;border-radius:7px;
+  padding:.5rem .9rem;font-size:.65rem;font-weight:700;cursor:pointer;
 }
 .token-status{font-size:.65rem}
 .token-status.ok{color:var(--green)}
 .token-status.bad{color:var(--warn)}
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.8rem}
-.card{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:.9rem}
+.card{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:.9rem;transition:border-color .2s}
+.card:hover{border-color:var(--purple)}
 .card h3{font-size:.78rem;margin-bottom:.2rem}
 .card .meta{font-size:.6rem;color:var(--text3);margin-bottom:.6rem}
 .prompt-block{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:.5rem;margin-bottom:.5rem}
@@ -101,15 +178,15 @@ footer a{color:var(--text3)}
   width:100%;background:transparent;color:var(--text);border:none;resize:vertical;
   font-family:ui-monospace,monospace;font-size:.62rem;height:70px;
 }
-.copy-btn{background:var(--card);color:var(--text);border:1px solid var(--border2);border-radius:6px;padding:.3rem .6rem;font-size:.6rem;cursor:pointer}
+.copy-btn{background:var(--card);color:var(--text);border:1px solid var(--border2);border-radius:6px;padding:.35rem .65rem;font-size:.6rem;cursor:pointer;transition:border-color .15s}
+.copy-btn:hover{border-color:var(--purple)}
 .drop-zone{
-  border:2px dashed var(--border2);border-radius:8px;padding:.7rem;text-align:center;
-  font-size:.65rem;color:var(--text3);margin-top:.5rem;
+  border:2px dashed var(--border2);border-radius:8px;padding:.75rem;text-align:center;
+  font-size:.65rem;color:var(--text3);margin-top:.5rem;transition:border-color .15s;
 }
-.drop-zone.drag{border-color:var(--accent);color:var(--accent)}
+.drop-zone.drag{border-color:var(--accent);color:var(--accent);background:#EC489910}
 .drop-zone label{color:var(--gold);cursor:pointer}
 .upload-status{font-size:.62rem;margin-top:.35rem}
-.locked-note{font-size:.65rem;color:var(--text3);text-align:center;padding:1rem}
 </style>
 
 <div class="header">
@@ -135,42 +212,55 @@ footer a{color:var(--text3)}
 <div class="panel activity-panel" id="activityPanel">
   <h2 id="activityHeading">🔧 Currently Processing</h2>
   <div id="activityBody">Loading…</div>
+  <div id="milestonesWrap"></div>
   <div id="activityHistory"></div>
 </div>
 
-<div class="panel" id="analyticsPanel">
-  <h2>📈 Account Progress</h2>
-  <div id="analyticsBody">Loading…</div>
+<div class="tabbar">
+  <button class="tabbtn active" data-tab="pipeline" onclick="showTab('pipeline')">📋 Pipeline</button>
+  <button class="tabbtn" data-tab="youtube" onclick="showTab('youtube')">📺 YouTube</button>
+  <button class="tabbtn" data-tab="analytics" onclick="showTab('analytics')">📈 Analytics</button>
 </div>
 
-<div class="panel">
-  <h2>⏰ Upcoming Queue <span class="badge" id="upcomingCount">0</span></h2>
-  <div id="upcomingList"></div>
-</div>
-
-<div class="panel">
-  <h2>🏁 Recently Posted <span class="badge" id="postedCount">0</span></h2>
-  <div id="postedList"></div>
-</div>
-
-<div class="panel">
-  <h2>🎬 Needs Video <span class="badge" id="needsVideoCount">0</span></h2>
-  <div class="sub" style="font-size:.68rem;color:var(--text2);margin-bottom:.7rem">Copy the prompt into your Gemini browser session, generate the clip, then upload it here — updates the studio machine's pipeline directly.</div>
-  <div class="token-gate">
-    <input type="password" id="tokenInput" placeholder="Upload access code (ask the CEO)">
-    <button onclick="saveToken()">Save</button>
-    <span class="token-status" id="tokenStatus"></span>
+<div class="tabpanel active" id="tab-pipeline">
+  <div class="panel">
+    <h2>⏰ Upcoming Queue <span class="badge" id="upcomingCount">0</span></h2>
+    <div id="upcomingList"></div>
   </div>
-  <div id="needsVideoCards" class="cards"></div>
+
+  <div class="panel">
+    <h2>🏁 Recently Posted <span class="badge" id="postedCount">0</span></h2>
+    <div id="postedList"></div>
+  </div>
+
+  <div class="panel">
+    <h2>🎬 Needs Video <span class="badge" id="needsVideoCount">0</span></h2>
+    <div class="sub" style="font-size:.68rem;color:var(--text2);margin-bottom:.7rem">Copy the prompt into your Gemini browser session, generate the clip, then upload it here — updates the studio machine's pipeline directly.</div>
+    <div class="token-gate">
+      <input type="password" id="tokenInput" placeholder="Upload access code (ask the CEO)">
+      <button onclick="saveToken()">Save</button>
+      <span class="token-status" id="tokenStatus"></span>
+    </div>
+    <div id="needsVideoCards" class="cards"></div>
+  </div>
 </div>
 
-<div class="panel">
-  <h2>📺 YouTube <span class="badge" id="ytUploadedCount">0</span></h2>
-  <div id="ytAnalyticsBody" class="sub">Loading…</div>
-  <div class="sub" style="margin-top:.7rem">Pending mirror to YouTube Shorts <span class="badge" id="ytPendingCount">0</span></div>
-  <div id="ytPendingList"></div>
-  <div class="sub" style="margin-top:.7rem">Recent uploads</div>
-  <div id="ytRecentList"></div>
+<div class="tabpanel" id="tab-youtube">
+  <div class="panel">
+    <h2>📺 YouTube <span class="badge" id="ytUploadedCount">0</span></h2>
+    <div id="ytAnalyticsBody" class="sub">Loading…</div>
+    <div class="sub" style="margin-top:.7rem">Pending mirror to YouTube Shorts <span class="badge" id="ytPendingCount">0</span></div>
+    <div id="ytPendingList"></div>
+    <div class="sub" style="margin-top:.7rem">Recent uploads</div>
+    <div id="ytRecentList"></div>
+  </div>
+</div>
+
+<div class="tabpanel" id="tab-analytics">
+  <div class="panel" id="analyticsPanel">
+    <h2>📈 Account Progress</h2>
+    <div id="analyticsBody">Loading…</div>
+  </div>
 </div>
 
 <footer>Insta Garam Studio · <a class="link" href="/">Merch store</a> · Live data via tunnel from the studio machine</footer>
@@ -180,6 +270,13 @@ footer a{color:var(--text3)}
 // Quick-tunnel URLs are NOT permanent — if this stops loading, the tunnel was
 // restarted and this constant needs updating to the new trycloudflare.com URL.
 const API_BASE = 'https://brighton-devoted-airport-ellis.trycloudflare.com';
+
+function showTab(name) {
+  document.querySelectorAll('.tabpanel').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tabbtn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  document.querySelector(`.tabbtn[data-tab="${name}"]`).classList.add('active');
+}
 
 function timeAgo(iso) {
   if (!iso) return '';
@@ -254,6 +351,30 @@ async function loadCommandCenter() {
   }
 }
 
+// Parses a step label like "5/8 FFmpeg processing" into {n, total, label}.
+// Returns null if the step doesn't follow that convention (falls back to
+// the plain shimmer/sweep animation instead of a milestone bar).
+function parseMilestone(step) {
+  if (!step) return null;
+  const m = step.match(/^(\d+)\/(\d+)\s*(.*)$/);
+  if (!m) return null;
+  return { n: parseInt(m[1], 10), total: parseInt(m[2], 10), label: m[3] || '' };
+}
+
+function renderMilestones(ms) {
+  if (!ms) return '';
+  let dots = '';
+  for (let i = 1; i <= ms.total; i++) {
+    const cls = i < ms.n ? 'done' : i === ms.n ? 'current' : '';
+    dots += `<div class="milestone-dot ${cls}">${i < ms.n ? '✓' : i}</div>`;
+    if (i < ms.total) {
+      const fillPct = i < ms.n ? 100 : 0;
+      dots += `<div class="milestone-track"><div class="fill" style="width:${fillPct}%"></div></div>`;
+    }
+  }
+  return `<div class="milestones">${dots}</div><div class="milestone-label">Step ${ms.n} of ${ms.total}</div>`;
+}
+
 async function loadActivity() {
   try {
     const res = await fetch(API_BASE + '/api/activity');
@@ -261,21 +382,24 @@ async function loadActivity() {
     const panel = document.getElementById('activityPanel');
     const body = document.getElementById('activityBody');
     const heading = document.getElementById('activityHeading');
+    const milestonesWrap = document.getElementById('milestonesWrap');
     const cur = data.current;
 
     if (cur && cur.active) {
       panel.className = 'panel activity-panel working';
-      heading.innerHTML = '<span class="live-dot"></span>Currently Processing';
+      heading.innerHTML = '<span class="activity-panel-icon">⚙️</span><span class="live-dot"></span>Currently Processing';
+      const ms = parseMilestone(cur.step);
       body.innerHTML = `
         <div><b>${(cur.icon || cur.task || 'Unknown')}</b> <span class="timestamp">· ${cur.task || ''} · started ${timeAgo(cur.started_at)}</span></div>
-        <div class="activity-step activity-dots">${cur.step || 'Working'}</div>
+        <div class="activity-step activity-dots">${ms ? ms.label : (cur.step || 'Working')}</div>
         <div class="activity-detail">${cur.detail || ''}</div>
-        <div class="timestamp">Updated ${timeAgo(cur.updated_at)}</div>
       `;
+      milestonesWrap.innerHTML = renderMilestones(ms);
     } else {
       panel.className = 'panel activity-panel';
       heading.textContent = '🔧 Currently Processing';
       body.innerHTML = '<div class="empty">Idle — nothing running right now.</div>';
+      milestonesWrap.innerHTML = '';
     }
 
     const hist = data.history || [];
