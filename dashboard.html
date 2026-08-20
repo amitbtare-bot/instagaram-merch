@@ -112,6 +112,30 @@ body{max-width:920px;margin:0 auto;padding:0 1.25rem 4rem;position:relative}
 @keyframes dots{0%{content:''}25%{content:'.'}50%{content:'..'}75%{content:'...'}100%{content:''}}
 .activity-detail{font-size:.72rem;color:var(--text2)}
 
+.progress-hero{margin:1rem 0 .4rem}
+.progress-hero-bar{
+  height:22px;border-radius:11px;background:var(--card2);position:relative;overflow:hidden;
+  box-shadow:inset 0 0 0 1px var(--border2);
+}
+.progress-hero-fill{
+  height:100%;border-radius:11px;
+  background:var(--grad);background-size:250% auto;
+  animation:gradFlow 2.5s ease infinite;
+  transition:width .8s cubic-bezier(.4,0,.2,1);
+  position:relative;
+}
+.progress-hero-fill::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);
+  width:40%;animation:progressSweep 1.6s ease-in-out infinite;
+}
+@keyframes progressSweep{0%{transform:translateX(-100%)}100%{transform:translateX(350%)}}
+.progress-hero-label{
+  display:flex;justify-content:space-between;align-items:baseline;margin-top:.4rem;
+  font-size:.7rem;color:var(--text2);
+}
+.progress-hero-pct{font-size:1.1rem;font-weight:900;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200% auto}
+
 .milestones{display:flex;align-items:center;margin:1rem 0 .3rem}
 .milestone-track{flex:1;height:4px;background:var(--card2);border-radius:3px;position:relative;margin:0 2px}
 .milestone-track .fill{
@@ -375,6 +399,26 @@ function renderMilestones(ms) {
   return `<div class="milestones">${dots}</div><div class="milestone-label">Step ${ms.n} of ${ms.total}</div>`;
 }
 
+// The big growing bar — 100% lands exactly when the pipeline reaches its
+// Telegram-upload step (the last meaningful step before it goes idle/done).
+function renderProgressHero(ms) {
+  if (!ms) {
+    // No parseable step yet (e.g. very first tick right after "start") —
+    // show an indeterminate sliver so the bar is still visibly alive.
+    return `
+      <div class="progress-hero">
+        <div class="progress-hero-bar"><div class="progress-hero-fill" style="width:6%"></div></div>
+        <div class="progress-hero-label"><span>Starting…</span><span class="progress-hero-pct">—</span></div>
+      </div>`;
+  }
+  const pct = Math.round((ms.n / ms.total) * 100);
+  return `
+    <div class="progress-hero">
+      <div class="progress-hero-bar"><div class="progress-hero-fill" style="width:${pct}%"></div></div>
+      <div class="progress-hero-label"><span>${ms.label || 'Working'}</span><span class="progress-hero-pct">${pct}%</span></div>
+    </div>`;
+}
+
 async function loadActivity() {
   try {
     const res = await fetch(API_BASE + '/api/activity');
@@ -394,7 +438,7 @@ async function loadActivity() {
         <div class="activity-step activity-dots">${ms ? ms.label : (cur.step || 'Working')}</div>
         <div class="activity-detail">${cur.detail || ''}</div>
       `;
-      milestonesWrap.innerHTML = renderMilestones(ms);
+      milestonesWrap.innerHTML = renderProgressHero(ms) + renderMilestones(ms);
     } else {
       panel.className = 'panel activity-panel';
       heading.textContent = '🔧 Currently Processing';
