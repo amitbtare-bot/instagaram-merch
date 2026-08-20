@@ -8,58 +8,260 @@
   --bg:#080B14;--bg2:#0D1120;--card:#111827;--card2:#0F172A;
   --border:#1F2937;--border2:#374151;
   --text:#F3F4F6;--text2:#9CA3AF;--text3:#6B7280;
-  --gold:#D4A853;--accent:#EC4899;--purple:#8B5CF6;--green:#10B981;
+  --gold:#D4A853;--accent:#EC4899;--purple:#8B5CF6;--green:#10B981;--warn:#F97316;--blue:#3B82F6;
 }
-html,body{height:100%}
-body{
-  background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,'Segoe UI',sans-serif;
-  -webkit-font-smoothing:antialiased;display:flex;align-items:center;justify-content:center;
-  min-height:100vh;padding:1.5rem;
+html{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased}
+body{max-width:900px;margin:0 auto;padding:1.5rem 1.25rem 4rem}
+
+.header{text-align:center;padding:1.5rem 0 1.25rem;position:relative}
+.header img{width:56px;height:56px;border-radius:12px;margin-bottom:.6rem}
+.header h1{font-size:1.5rem;font-weight:900;letter-spacing:-.02em}
+.header h1 .hl{background:linear-gradient(135deg,#8B5CF6,#EC4899,#D4A853);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.header .sub{font-size:.75rem;color:var(--text3);margin-top:.3rem}
+.status-pill{
+  display:inline-flex;align-items:center;gap:.4rem;font-size:.65rem;font-weight:700;
+  color:var(--green);background:#10B98115;border:1px solid #10B98140;padding:.3rem .7rem;
+  border-radius:20px;margin-top:.6rem;text-transform:uppercase;letter-spacing:.05em;
 }
-.wrap{max-width:480px;width:100%;text-align:center;position:relative}
-.glow{
-  position:absolute;inset:-60px;z-index:0;pointer-events:none;
-  background:radial-gradient(circle at 30% 20%,#8B5CF625,transparent 55%),
-             radial-gradient(circle at 70% 80%,#EC489920,transparent 55%);
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+
+.local-cta{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  background:linear-gradient(135deg,#8B5CF615,#EC489915);border:1px solid var(--border2);
+  border-radius:12px;padding:.9rem 1.1rem;margin-bottom:1.5rem;font-size:.75rem;color:var(--text2);
 }
-.card{
-  position:relative;z-index:1;background:var(--card);border:1px solid var(--border);
-  border-radius:16px;padding:2.5rem 2rem;
+.local-cta a{
+  background:linear-gradient(135deg,#8B5CF6,#EC4899);color:#fff;text-decoration:none;font-weight:700;
+  font-size:.7rem;padding:.55rem 1rem;border-radius:8px;white-space:nowrap;
 }
-.card img{width:60px;height:60px;border-radius:14px;margin-bottom:1rem}
-h1{font-size:1.4rem;font-weight:900;letter-spacing:-.02em;margin-bottom:.4rem}
-h1 .hl{background:linear-gradient(135deg,#8B5CF6,#EC4899,#D4A853);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.sub{font-size:.8rem;color:var(--text2);margin-bottom:1.75rem;line-height:1.5}
-.btn{
-  display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,#8B5CF6,#EC4899);
-  color:#fff;text-decoration:none;font-weight:700;font-size:.85rem;padding:.85rem 1.6rem;
-  border-radius:10px;transition:transform .15s,box-shadow .15s;
-}
-.btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px #EC489940}
-.note{
-  margin-top:1.5rem;font-size:.68rem;color:var(--text3);line-height:1.6;
-  border-top:1px solid var(--border);padding-top:1.25rem;
-}
-.note b{color:var(--text2)}
-.dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);margin-right:.35rem}
-footer{margin-top:1.25rem;font-size:.65rem;color:var(--text3)}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin-bottom:1.25rem}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.8rem .7rem}
+.kpi .num{font-size:1.3rem;font-weight:800}
+.kpi .label{font-size:.6rem;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-top:.15rem}
+.kpi.warn .num{color:var(--warn)}
+.bar{height:8px;border-radius:5px;overflow:hidden;display:flex;background:var(--card2);margin-bottom:1.5rem}
+.bar>div{height:100%}
+
+.panel{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.2rem;margin-bottom:1.25rem;position:relative;overflow:hidden}
+.panel h2{font-size:.85rem;font-weight:800;margin-bottom:.7rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap}
+.badge{font-size:.6rem;padding:.15rem .5rem;border-radius:20px;background:var(--card2);color:var(--text3)}
+
+.attention{background:#F9731610;border-color:#F9731650}
+.attention h2{color:var(--warn)}
+
+.activity-panel.working{background:linear-gradient(120deg,#8B5CF610,#EC489910,#8B5CF610);background-size:200% 200%;border-color:var(--accent);animation:shimmer 3s ease infinite}
+.activity-panel.working::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(236,72,153,.10),transparent);background-size:200% 100%;animation:sweep 2.2s linear infinite}
+@keyframes shimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes sweep{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-right:.4rem;box-shadow:0 0 0 0 rgba(236,72,153,.6);animation:pulse-ring 1.4s infinite}
+@keyframes pulse-ring{0%{box-shadow:0 0 0 0 rgba(236,72,153,.6)}70%{box-shadow:0 0 0 7px rgba(236,72,153,0)}100%{box-shadow:0 0 0 0 rgba(236,72,153,0)}}
+.activity-step{font-size:.95rem;font-weight:700;margin:.3rem 0 .15rem}
+.activity-dots::after{content:'';display:inline-block;width:1.2em;text-align:left;animation:dots 1.4s steps(4) infinite}
+@keyframes dots{0%{content:''}25%{content:'.'}50%{content:'..'}75%{content:'...'}100%{content:''}}
+.activity-detail{font-size:.7rem;color:var(--text2)}
+.hist-item{font-size:.65rem;color:var(--text3);padding:.3rem 0;border-bottom:1px solid var(--border)}
+.hist-item:last-child{border-bottom:none}
+.outcome-done{color:var(--green)}
+.outcome-error{color:var(--warn)}
+
+.list-item{font-size:.7rem;padding:.5rem 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;gap:.6rem}
+.list-item:last-child{border-bottom:none}
+.pill{font-size:.55rem;padding:.1rem .45rem;border-radius:10px}
+.pill.overdue{background:#F9731620;color:var(--warn)}
+.pill.soon{background:#3B82F620;color:var(--blue)}
+.pill.posted{background:#10B98120;color:var(--green)}
+a.link{color:var(--gold);text-decoration:none}
+.empty{color:var(--text3);font-size:.7rem;padding:.4rem 0}
+.timestamp{font-size:.65rem;color:var(--text3)}
+.err-banner{background:#F9731615;border:1px solid var(--warn);color:var(--warn);border-radius:8px;padding:.5rem .7rem;font-size:.65rem;margin-top:.5rem}
+footer{text-align:center;font-size:.65rem;color:var(--text3);margin-top:1.5rem}
 footer a{color:var(--text3)}
+@media (max-width:600px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}
 </style>
 
-<div class="wrap">
-  <div class="glow"></div>
-  <div class="card">
-    <img src="logo_dark.png" alt="">
-    <h1>Insta Garam <span class="hl">Command Center</span></h1>
-    <p class="sub">Live pipeline board, prompt queue, and account progress tracking for the studio.</p>
-    <a class="btn" href="http://localhost:8811" target="_blank">
-      <span class="dot"></span> Open Command Center
-    </a>
-    <div class="note">
-      <b>Runs locally on the studio machine.</b> This link only connects while the
-      dashboard server is running on that computer — open this page there to
-      launch it. It isn't reachable from other devices.
-    </div>
-  </div>
-  <footer>Insta Garam Studio · <a href="/">Merch store</a></footer>
+<div class="header">
+  <img src="logo_dark.png" alt="">
+  <h1>Insta Garam <span class="hl">Command Center</span></h1>
+  <div class="sub" id="lastLoaded">Loading…</div>
+  <div class="status-pill"><span class="status-dot"></span> Autoposter live · GitHub Actions</div>
 </div>
+
+<div class="local-cta">
+  <div>Prompt copy, upload basket, and full pipeline board run on the studio machine.</div>
+  <a href="http://localhost:8811" target="_blank">Open Local Dashboard →</a>
+</div>
+
+<div class="kpi-grid" id="kpiGrid"></div>
+<div id="progressBar"></div>
+
+<div class="panel attention" id="attentionPanel" style="display:none">
+  <h2>⚠️ Needs Attention</h2>
+  <div id="attentionList"></div>
+</div>
+
+<div class="panel activity-panel" id="activityPanel">
+  <h2 id="activityHeading">🔧 Currently Processing</h2>
+  <div id="activityBody">Loading…</div>
+  <div id="activityHistory"></div>
+</div>
+
+<div class="panel" id="analyticsPanel">
+  <h2>📈 Account Progress</h2>
+  <div id="analyticsBody">Loading…</div>
+</div>
+
+<div class="panel">
+  <h2>⏰ Upcoming Queue <span class="badge" id="upcomingCount">0</span></h2>
+  <div id="upcomingList"></div>
+</div>
+
+<div class="panel">
+  <h2>🏁 Recently Posted <span class="badge" id="postedCount">0</span></h2>
+  <div id="postedList"></div>
+</div>
+
+<footer>Insta Garam Studio · <a class="link" href="/">Merch store</a> · Live data via tunnel from the studio machine</footer>
+
+<script>
+// Public read-only status API (cloudflared tunnel → local public_status_server.py, port 8812).
+// Quick-tunnel URLs are NOT permanent — if this stops loading, the tunnel was
+// restarted and this constant needs updating to the new trycloudflare.com URL.
+const API_BASE = 'https://regularly-python-occurring-databases.trycloudflare.com';
+
+function timeAgo(iso) {
+  if (!iso) return '';
+  const s = Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 1000));
+  if (s < 60) return s + 's ago';
+  if (s < 3600) return Math.round(s/60) + 'm ago';
+  return Math.round(s/3600) + 'h ago';
+}
+function fmtDate(iso) {
+  if (!iso) return '—';
+  return new Date(iso).toLocaleString(undefined, {month:'short', day:'numeric', hour:'2-digit', minute:'2-digit'});
+}
+
+async function loadCommandCenter() {
+  try {
+    const res = await fetch(API_BASE + '/api/command_center');
+    const data = await res.json();
+    const k = data.kpis;
+    document.getElementById('lastLoaded').textContent = 'Live — updated ' + new Date().toLocaleTimeString();
+
+    document.getElementById('kpiGrid').innerHTML = `
+      <div class="kpi"><div class="num">${k.total_packages}</div><div class="label">Total</div></div>
+      <div class="kpi"><div class="num">${k.posted}</div><div class="label">Posted</div></div>
+      <div class="kpi"><div class="num">${k.ready_to_publish}</div><div class="label">Approval</div></div>
+      <div class="kpi"><div class="num">${k.processing_queue}</div><div class="label">Processing</div></div>
+      <div class="kpi"><div class="num">${k.needs_video}</div><div class="label">Needs Video</div></div>
+      <div class="kpi"><div class="num">${k.upcoming_queue}</div><div class="label">Upcoming</div></div>
+      <div class="kpi ${k.needs_attention ? 'warn' : ''}"><div class="num">${k.needs_attention}</div><div class="label">Overdue</div></div>
+      <div class="kpi"><div class="num">${k.latest_cvi ?? '—'}</div><div class="label">Latest CVI</div></div>
+    `;
+
+    const segs = [
+      {n: k.posted, color: '#10B981'},
+      {n: k.ready_to_publish, color: '#D4A853'},
+      {n: k.processing_queue, color: '#3B82F6'},
+      {n: k.needs_video, color: '#EC4899'},
+    ];
+    document.getElementById('progressBar').innerHTML = `<div class="bar">` +
+      segs.map(x => `<div style="width:${(x.n / Math.max(k.total_packages,1) * 100)}%; background:${x.color}"></div>`).join('') +
+      `</div>`;
+
+    const attPanel = document.getElementById('attentionPanel');
+    if (data.needs_attention.length) {
+      attPanel.style.display = 'block';
+      document.getElementById('attentionList').innerHTML = data.needs_attention.map(p => `
+        <div class="list-item">
+          <span>${(p.icon||'').replace(/_/g,' ')} <span class="pill overdue">${p.overdue_hours}h overdue</span></span>
+          <span class="timestamp">was due ${fmtDate(p.scheduled_time_utc)}</span>
+        </div>
+      `).join('');
+    } else {
+      attPanel.style.display = 'none';
+    }
+
+    document.getElementById('upcomingCount').textContent = data.upcoming.length;
+    document.getElementById('upcomingList').innerHTML = data.upcoming.length ? data.upcoming.map(p => `
+      <div class="list-item">
+        <span>${(p.icon||'').replace(/_/g,' ')}</span>
+        <span class="timestamp">${fmtDate(p.scheduled_time_utc)} <span class="pill soon">queued</span></span>
+      </div>
+    `).join('') : '<div class="empty">Nothing queued right now.</div>';
+
+    document.getElementById('postedCount').textContent = data.recently_posted.length;
+    document.getElementById('postedList').innerHTML = data.recently_posted.length ? data.recently_posted.map(p => `
+      <div class="list-item">
+        <span>${(p.icon||'').replace(/_/g,' ')}</span>
+        <span>${p.permalink ? `<a class="link" href="${p.permalink}" target="_blank">view post</a>` : '<span class="timestamp">no permalink</span>'} <span class="pill posted">posted</span></span>
+      </div>
+    `).join('') : '<div class="empty">Nothing posted yet.</div>';
+  } catch (e) {
+    document.getElementById('lastLoaded').textContent = '⚠️ Offline — studio machine or tunnel unreachable';
+  }
+}
+
+async function loadActivity() {
+  try {
+    const res = await fetch(API_BASE + '/api/activity');
+    const data = await res.json();
+    const panel = document.getElementById('activityPanel');
+    const body = document.getElementById('activityBody');
+    const heading = document.getElementById('activityHeading');
+    const cur = data.current;
+
+    if (cur && cur.active) {
+      panel.className = 'panel activity-panel working';
+      heading.innerHTML = '<span class="live-dot"></span>Currently Processing';
+      body.innerHTML = `
+        <div><b>${(cur.icon || cur.task || 'Unknown')}</b> <span class="timestamp">· ${cur.task || ''} · started ${timeAgo(cur.started_at)}</span></div>
+        <div class="activity-step activity-dots">${cur.step || 'Working'}</div>
+        <div class="activity-detail">${cur.detail || ''}</div>
+        <div class="timestamp">Updated ${timeAgo(cur.updated_at)}</div>
+      `;
+    } else {
+      panel.className = 'panel activity-panel';
+      heading.textContent = '🔧 Currently Processing';
+      body.innerHTML = '<div class="empty">Idle — nothing running right now.</div>';
+    }
+
+    const hist = data.history || [];
+    document.getElementById('activityHistory').innerHTML = hist.length ? `
+      <div class="timestamp" style="margin-top:.6rem">Recent activity</div>
+      ${hist.map(h => `
+        <div class="hist-item">
+          <span class="outcome-${h.outcome}">${h.outcome === 'done' ? '✓' : '✗'}</span>
+          ${(h.icon || h.task || 'Unknown')} — ${h.final_detail || h.step || ''} <span class="timestamp">${timeAgo(h.ended_at)}</span>
+        </div>
+      `).join('')}
+    ` : '';
+  } catch (e) { /* silent, KPI panel already shows offline state */ }
+}
+
+async function loadAnalytics() {
+  try {
+    const res = await fetch(API_BASE + '/api/analytics');
+    const data = await res.json();
+    const el = document.getElementById('analyticsBody');
+    const l = data.latest;
+    if (!l) { el.innerHTML = '<div class="empty">No snapshots yet.</div>'; return; }
+    let html = `
+      <div class="kpi-grid" style="margin-bottom:.5rem">
+        <div class="kpi"><div class="num">${l.followers_count ?? '—'}</div><div class="label">Followers</div></div>
+        <div class="kpi"><div class="num">${l.media_count ?? '—'}</div><div class="label">Total Posts</div></div>
+      </div>
+      <div class="timestamp">Last checked: ${new Date(l.timestamp).toLocaleString()} (${l.trigger})</div>
+    `;
+    if (l.error) html += `<div class="err-banner">⚠️ ${l.error}</div>`;
+    el.innerHTML = html;
+  } catch (e) { /* silent */ }
+}
+
+loadCommandCenter();
+loadActivity();
+loadAnalytics();
+setInterval(loadCommandCenter, 15000);
+setInterval(loadActivity, 4000);
+setInterval(loadAnalytics, 30000);
+</script>
