@@ -256,6 +256,11 @@ footer a{color:var(--text3)}
   <div id="attentionList"></div>
 </div>
 
+<div class="panel" id="awaitingTopPanel" style="display:none">
+  <h2>⏳ Awaiting Your Telegram Decision <span class="badge" id="awaitingTopCount">0</span></h2>
+  <div id="awaitingTopList"></div>
+</div>
+
 <div class="panel activity-panel" id="activityPanel">
   <h2 id="activityHeading">🔧 Currently Processing</h2>
   <div id="activityBody">Loading…</div>
@@ -438,8 +443,7 @@ async function loadCommandCenter() {
     `).join('') : '<div class="empty">Nothing posted yet.</div>';
 
     const aw = data.awaiting_approval || [];
-    document.getElementById('awaitingCount').textContent = aw.length;
-    document.getElementById('awaitingList').innerHTML = aw.length ? aw.map(a => `
+    const awaitingCardsHTML = aw.length ? aw.map(a => `
       <div class="approval-card">
         ${a.cover_url ? `<img class="approval-cover" src="${a.cover_url}" loading="lazy">` : '<div class="approval-cover"></div>'}
         <div class="approval-meta">
@@ -449,6 +453,16 @@ async function loadCommandCenter() {
         <span class="pill waiting">awaiting reply</span>
       </div>
     `).join('') : '<div class="empty">Nothing waiting on you right now.</div>';
+
+    // Same list rendered in two places: an always-visible panel right below
+    // Needs Attention (so it's never buried behind a tab click — this is
+    // time-sensitive, the CEO needs to see it without hunting for it) and
+    // inside the Planned tab (for context alongside the full calendar).
+    document.getElementById('awaitingCount').textContent = aw.length;
+    document.getElementById('awaitingList').innerHTML = awaitingCardsHTML;
+    document.getElementById('awaitingTopCount').textContent = aw.length;
+    document.getElementById('awaitingTopList').innerHTML = awaitingCardsHTML;
+    document.getElementById('awaitingTopPanel').style.display = aw.length ? 'block' : 'none';
   } catch (e) {
     document.getElementById('lastLoaded').textContent = '⚠️ Offline — studio machine or tunnel unreachable';
     markStale('studio machine or tunnel unreachable');
