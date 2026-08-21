@@ -178,6 +178,19 @@ body{max-width:920px;margin:0 auto;padding:0 1.25rem 4rem;position:relative}
 .pill.overdue{background:#F9731620;color:var(--warn)}
 .pill.soon{background:#3B82F620;color:var(--blue)}
 .pill.posted{background:#10B98120;color:var(--green)}
+.pill.waiting{background:#EC489920;color:#EC4899}
+.approval-card{display:flex;gap:.7rem;padding:.6rem 0;border-bottom:1px solid var(--border);align-items:center}
+.approval-card:last-child{border-bottom:none}
+.approval-cover{width:44px;height:78px;object-fit:cover;border-radius:6px;background:var(--card2);flex-shrink:0}
+.approval-meta{flex:1;min-width:0}
+.approval-meta .title{font-size:.72rem;font-weight:600}
+.approval-meta .sub2{font-size:.62rem;color:var(--text3);margin-top:.15rem}
+.cal-legend{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.7rem;font-size:.6rem;color:var(--text3)}
+.cal-legend span{display:inline-flex;align-items:center;gap:.3rem}
+.cal-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.cal-date-group{margin-bottom:.5rem}
+.cal-date-label{font-size:.6rem;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin:.5rem 0 .25rem}
+.cal-item{display:flex;align-items:center;gap:.5rem;font-size:.68rem;padding:.3rem 0}
 a.link{color:var(--gold);text-decoration:none}
 .empty{color:var(--text3);font-size:.7rem;padding:.6rem 0;text-align:center}
 .timestamp{font-size:.65rem;color:var(--text3)}
@@ -252,6 +265,7 @@ footer a{color:var(--text3)}
 
 <div class="tabbar">
   <button class="tabbtn active" data-tab="pipeline" onclick="showTab('pipeline')">📋 Pipeline</button>
+  <button class="tabbtn" data-tab="planned" onclick="showTab('planned')">📅 Planned</button>
   <button class="tabbtn" data-tab="youtube" onclick="showTab('youtube')">📺 YouTube</button>
   <button class="tabbtn" data-tab="analytics" onclick="showTab('analytics')">📈 Analytics</button>
 </div>
@@ -276,6 +290,21 @@ footer a{color:var(--text3)}
       <span class="token-status" id="tokenStatus"></span>
     </div>
     <div id="needsVideoCards" class="cards"></div>
+  </div>
+</div>
+
+<div class="tabpanel" id="tab-planned">
+  <div class="panel">
+    <h2>⏳ Awaiting Your Telegram Decision <span class="badge" id="awaitingCount">0</span></h2>
+    <div class="sub" style="font-size:.68rem;color:var(--text2);margin-bottom:.7rem">Sent to Telegram but not yet Reject/Review/Post Later/Post Now'd. This is the same queue the CEO bot is waiting on — visible here too so it's never only-in-Telegram.</div>
+    <div id="awaitingList"></div>
+  </div>
+
+  <div class="panel">
+    <h2>📅 Full Content Calendar <span class="badge" id="calendarCount">0</span></h2>
+    <div class="sub" style="font-size:.68rem;color:var(--text2);margin-bottom:.7rem">Every entry in the backlog, grouped by date — from freshly-researched icons through to posted. This is "what's planned" end to end.</div>
+    <div class="cal-legend" id="calLegend"></div>
+    <div id="calendarList"></div>
   </div>
 </div>
 
@@ -304,7 +333,7 @@ footer a{color:var(--text3)}
 // Public read-only+access-code-gated-write status API (cloudflared tunnel → local prompt_board_server.py, port 8811).
 // Quick-tunnel URLs are NOT permanent — if this stops loading, the tunnel was
 // restarted and this constant needs updating to the new trycloudflare.com URL.
-const API_BASE = 'https://old-garbage-targeted-lisa.trycloudflare.com';
+const API_BASE = 'https://italic-length-concerning-dealtime.trycloudflare.com';
 
 function showTab(name) {
   document.querySelectorAll('.tabpanel').forEach(el => el.classList.remove('active'));
@@ -407,9 +436,65 @@ async function loadCommandCenter() {
         <span>${p.permalink ? `<a class="link" href="${p.permalink}" target="_blank">view post</a>` : '<span class="timestamp">no permalink</span>'} <span class="pill posted">posted</span></span>
       </div>
     `).join('') : '<div class="empty">Nothing posted yet.</div>';
+
+    const aw = data.awaiting_approval || [];
+    document.getElementById('awaitingCount').textContent = aw.length;
+    document.getElementById('awaitingList').innerHTML = aw.length ? aw.map(a => `
+      <div class="approval-card">
+        ${a.cover_url ? `<img class="approval-cover" src="${a.cover_url}" loading="lazy">` : '<div class="approval-cover"></div>'}
+        <div class="approval-meta">
+          <div class="title">${(a.icon||a.title||'').toString()}</div>
+          <div class="sub2">CVI ${a.cvi_score ?? '—'} · ${a.status.replace(/_/g,' ')} · ${a.age_hours != null ? a.age_hours + 'h waiting' : ''}${a.nudged ? ' · nudged' : ''}</div>
+        </div>
+        <span class="pill waiting">awaiting reply</span>
+      </div>
+    `).join('') : '<div class="empty">Nothing waiting on you right now.</div>';
   } catch (e) {
     document.getElementById('lastLoaded').textContent = '⚠️ Offline — studio machine or tunnel unreachable';
     markStale('studio machine or tunnel unreachable');
+  }
+}
+
+const STAGE_LABELS = {
+  researched: 'Researched', prompts_ready: 'Prompts Ready', ready_to_process: 'Ready to Process',
+  ready_to_publish: 'Ready to Publish', posted: 'Posted',
+};
+const STAGE_COLORS = {
+  researched: '#8B5CF6', prompts_ready: '#EC4899', ready_to_process: '#3B82F6',
+  ready_to_publish: '#D4A853', posted: '#10B981',
+};
+
+async function loadCalendar() {
+  try {
+    const res = await fetch(API_BASE + '/api/schedule');
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    document.getElementById('calLegend').innerHTML = Object.keys(STAGE_LABELS).map(k =>
+      `<span><span class="cal-dot" style="background:${STAGE_COLORS[k]}"></span>${STAGE_LABELS[k]}</span>`
+    ).join('');
+    const total = data.dates.reduce((n, d) => n + d.items.length, 0);
+    document.getElementById('calendarCount').textContent = total;
+    // Most useful sorted with unscheduled/upcoming first, not buried at the bottom alphabetically.
+    const sorted = [...data.dates].sort((a, b) => {
+      if (a.date === 'unscheduled') return -1;
+      if (b.date === 'unscheduled') return 1;
+      return a.date < b.date ? -1 : 1;
+    });
+    document.getElementById('calendarList').innerHTML = sorted.map(d => `
+      <div class="cal-date-group">
+        <div class="cal-date-label">${d.date === 'unscheduled' ? 'Unscheduled backlog' : d.date}</div>
+        ${d.items.map(it => `
+          <div class="cal-item">
+            <span class="cal-dot" style="background:${it.color}"></span>
+            <span>${it.title || '(untitled)'}</span>
+            ${it.slot ? `<span class="timestamp">${it.slot}</span>` : ''}
+            ${it.series ? `<span class="pill soon">${it.series}</span>` : ''}
+          </div>
+        `).join('')}
+      </div>
+    `).join('');
+  } catch (e) {
+    document.getElementById('calendarList').innerHTML = '<div class="empty">Could not load calendar.</div>';
   }
 }
 
@@ -690,9 +775,11 @@ loadActivity();
 loadAnalytics();
 loadBoard();
 loadYoutube();
+loadCalendar();
 setInterval(loadCommandCenter, 15000);
 setInterval(loadActivity, 4000);
 setInterval(loadAnalytics, 30000);
 setInterval(loadBoard, 30000);
 setInterval(loadYoutube, 30000);
+setInterval(loadCalendar, 30000);
 </script>
